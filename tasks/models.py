@@ -21,4 +21,4 @@ class TaskModel(models.Model):
         on_delete=models.CASCADE,
         related_name="tasks")
     class Meta:
-        ordering = ["-priority"]
+        ordering = ["-priority", "-due_date", "-created_at"]
