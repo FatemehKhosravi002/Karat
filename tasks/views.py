@@ -5,7 +5,7 @@ from rest_framework import permissions, authentication
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 
-from .serilizers import TaskSerilizer
+from .serializers import TaskSerializer
 from .models import TaskModel
 
 class TaskDetailView(APIView):
@@ -20,26 +20,26 @@ class TaskDetailView(APIView):
     
     def get(self, request, pk):
         obj = self.get_object(pk)
-        serilizer = TaskSerilizer(obj)
-        return Response(serilizer.data)
+        serializer = TaskSerializer(obj)
+        return Response(serializer.data)
     
     def put(self, request, pk):
         obj = self.get_object(pk)
-        serilizer = TaskSerilizer(data=request.data, instance=obj)
+        serializer = TaskSerializer(data=request.data, instance=obj)
 
-        if serilizer.is_valid():
-            serilizer.save(user=request.user)
-            return Response(serilizer.data, status=200)
-        return Response(serilizer.errors, status=400)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)
     
     def patch(self, request, pk):
         obj = self.get_object(pk)
-        serilizer = TaskSerilizer(data=request.data, instance=obj, partial=True)
+        serializer = TaskSerializer(data=request.data, instance=obj, partial=True)
 
-        if serilizer.is_valid():
-            serilizer.save(user=request.user)
-            return Response(serilizer.data, status=200)
-        return Response(serilizer.errors, status=400)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)
     
     def delete(self, request, pk):
         obj = self.get_object(pk)
@@ -52,12 +52,12 @@ class TasksListView(APIView):
 
     def get(self, request):
         tasks = TaskModel.objects.filter(user=request.user, is_deleted=False)
-        serilizer = TaskSerilizer(tasks, many=True)
-        return Response(serilizer.data)
+        serializer = TaskSerializer(tasks, many=True)
+        return Response(serializer.data)
 
     def post(self, request):
-        serilizer = TaskSerilizer(data=request.data)
-        if serilizer.is_valid():
-            serilizer.save(user=request.user)
-            return Response(serilizer.data, status=201)
-        return Response(serilizer.errors, status=400)
+        serializer = TaskSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
