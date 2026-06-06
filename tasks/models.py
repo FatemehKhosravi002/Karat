@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 
-import django_jalali.db.models as jmodels
+from django_jalali.db import models as jmodels
 
 
 class TaskModel(models.Model):
