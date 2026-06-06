@@ -5,7 +5,7 @@ from django_jalali.db import models as jmodels
 
 
 class TaskModel(models.Model):
-    class PriorityChoices(models.TextChoices):
+    class PriorityChoices(models.IntegerChoices):
         HIGH = 3 ,"High"
         MEDIUM = 2, "Medium"
         LOW = 1, "Low"
