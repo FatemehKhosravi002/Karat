@@ -47,8 +47,13 @@ class TaskDetailView(APIView):
         obj.save()
         return Response(status=204)
 
-class TaskCreateView(APIView):
+class TasksListView(APIView):
     permission_classes=[IsAuthenticated]
+
+    def get(self, request):
+        tasks = TaskModel.objects.filter(user=request.user, is_deleted=False)
+        serilizer = TaskSerilizer(tasks, many=True)
+        return Response(serilizer.data)
 
     def post(self, request):
         serilizer = TaskSerilizer(data=request.data)
@@ -56,11 +61,3 @@ class TaskCreateView(APIView):
             serilizer.save(user=request.user)
             return Response(serilizer.data, status=201)
         return Response(serilizer.errors, status=400)
-
-class TaskListView(APIView):
-    permission_classes=[IsAuthenticated]
-
-    def get(self, request):
-        tasks = TaskModel.objects.filter(user=request.user, is_deleted=False)
-        serilizer = TaskSerilizer(tasks, many=True)
-        return Response(serilizer.data)
