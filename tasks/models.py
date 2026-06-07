@@ -10,6 +10,10 @@ class TaskModel(models.Model):
         MEDIUM = 2, "Medium"
         LOW = 1, "Low"
 
+    class Duration_TypeChoices(models.TextChoices):
+        LONG = "long", "Long"
+        SHORT = "short", "Short"
+
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     created_at = jmodels.jDateTimeField(auto_now_add=True)
@@ -17,6 +21,8 @@ class TaskModel(models.Model):
     priority = models.IntegerField(choices=PriorityChoices, default=PriorityChoices.MEDIUM)
     is_completed = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
+    duration_type = models.CharField(max_length=5, choices=Duration_TypeChoices, default=Duration_TypeChoices.SHORT)
+    tag = models.CharField(max_length=30, null=True, blank=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
