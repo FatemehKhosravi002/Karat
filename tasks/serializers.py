@@ -11,6 +11,7 @@ class TaskSerializer(serializers.Serializer):
     due_date = serializers.DateTimeField(required=False, allow_null=True, default=None)
     priority = serializers.ChoiceField(choices=TaskModel.PriorityChoices, required=False, default=TaskModel.PriorityChoices.MEDIUM)
     is_completed = serializers.BooleanField(required=False)
+    is_deleted = serializers.BooleanField(required=False)
 
     def create(self, validated_data):
         return TaskModel.objects.create(**validated_data)
@@ -22,5 +23,13 @@ class TaskSerializer(serializers.Serializer):
         instance.priority = validated_data.get("priority", instance.priority)
         instance.is_completed = validated_data.get("is_completed", instance.is_completed)
 
+        instance.save()
+        return instance
+
+class TaskSofteDeletedSerializer(serializers.Serializer):
+    is_deleted = serializers.BooleanField(default=True)
+
+    def update(self, instance, validated_data):
+        instance.is_deleted = validated_data["is_deleted"]
         instance.save()
         return instance
