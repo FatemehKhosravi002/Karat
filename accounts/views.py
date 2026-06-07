@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from .serilizers import CustomUserSerializer
+from .serilizers import CustomUserSerializer, CustomUserChangePasswordSerializer
 
 class CustomUserDetailView(APIView):
     permission_classes=[IsAuthenticated]
@@ -32,4 +32,17 @@ class CustomUserCreateView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+    
+class CustomUserChangePasswordView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = CustomUserChangePasswordSerializer(request.user, data=request.data)
+        if serializer.is_valid():
+            old_password = serializer.validated_data["old_password"]
+            if request.user.check_password(old_password):
+                serializer.save()
+                return Response(serializer.data, status=200)
+            raise ValueError("The old password is incorrect.")
         return Response(serializer.errors, status=400)
