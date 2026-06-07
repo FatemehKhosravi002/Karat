@@ -15,6 +15,7 @@ class TaskModel(models.Model):
     created_at = jmodels.jDateTimeField(auto_now_add=True)
     due_date = jmodels.jDateTimeField(blank=True, null=True)
     priority = models.IntegerField(choices=PriorityChoices, default=PriorityChoices.MEDIUM)
+    is_completed = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
