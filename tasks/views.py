@@ -1,4 +1,4 @@
-from datatime import timedelta
+from datetime import timedelta
 
 from django.shortcuts import render
 from rest_framework.views import APIView
@@ -69,8 +69,15 @@ class TaskCompletedListView(APIView):
 
     def get(self, request):
         tasks = TaskModel.objects.filter(user=request.user, is_completed=True)
+        count = tasks.count()
         serializer = TaskSerializer(tasks, many=True)
-        return Response(serializer.data , status=200)
+        return Response(
+    {
+        "count": count,
+        "tasks": serializer.data
+    },
+    status=200
+)
 
 class TaskSoftDeletedListView(APIView):
     permission_classes=[IsAuthenticated]
