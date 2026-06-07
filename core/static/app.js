@@ -16,16 +16,25 @@ const ROAD_LINES = [
   "کارهات رو بزن، بعد استراحت کن ✨",
 ];
 
+const TAB_ENDPOINTS = {
+  active:    "/tasks/",
+  completed: "/tasks/completed/",
+  deleted:   "/tasks/deleted/",
+};
+
 let tasks = [];
 let editingId = null;
 let currentUser = null;
+let currentTab = "active";
+let selectedTag = "";
 
-const taskList    = document.getElementById("taskList");
-const taskModal   = document.getElementById("taskModal");
-const taskForm    = document.getElementById("taskForm");
-const roadBar     = document.getElementById("funBar");
+const taskList     = document.getElementById("taskList");
+const taskModal    = document.getElementById("taskModal");
+const taskForm     = document.getElementById("taskForm");
+const roadBar      = document.getElementById("funBar");
 const profileModal = document.getElementById("profileModal");
 const profileForm  = document.getElementById("profileForm");
+const tagFilter    = document.getElementById("tagFilter");
 
 /* ── bootstrap ── */
 document.getElementById("logoutBtn").addEventListener("click", () => Auth.logout());
@@ -38,6 +47,10 @@ document.getElementById("profileBackdrop").addEventListener("click", closeProfil
 
 taskForm.addEventListener("submit", (e) => { e.preventDefault(); saveTask(); });
 profileForm.addEventListener("submit", (e) => { e.preventDefault(); saveProfile(); });
+
+document.querySelectorAll(".task-tab").forEach((btn) => {
+  btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+});
 
 /* ── helpers ── */
 function toPersianNum(n) {
@@ -60,6 +73,17 @@ function showToast(msg, isError = false) {
 
 function formatJalaliDate(str) {
   return Jalali.format(str);
+}
+
+function filteredTasks() {
+  if (!selectedTag) return tasks;
+  return tasks.filter((t) => t.tag === selectedTag);
+}
+
+function collectTags(list) {
+  const tags = new Set();
+  list.forEach((t) => { if (t.tag) tags.add(t.tag); });
+  return [...tags].sort((a, b) => a.localeCompare(b, "fa"));
 }
 
 /* ── Jalali date picker ── */
@@ -148,10 +172,12 @@ initJalaliSelects();
 clearDueFields();
 
 /* ── API calls ── */
-async function fetchTasks() {
-  const res = await Auth.api("/tasks/");
+async function fetchTasksForTab(tab) {
+  const res = await Auth.api(TAB_ENDPOINTS[tab]);
   if (!res.ok) throw new Error("load");
-  return res.json();
+  const data = await res.json();
+  if (tab === "completed") return data.tasks || [];
+  return data;
 }
 
 async function fetchTask(id) {
@@ -189,6 +215,19 @@ async function deleteTask(id) {
   if (!res.ok && res.status !== 204) throw new Error("delete");
 }
 
+/* ── Tab switching ── */
+function switchTab(tab) {
+  if (tab === currentTab) return;
+  currentTab = tab;
+  selectedTag = "";
+  document.querySelectorAll(".task-tab").forEach((btn) => {
+    const active = btn.dataset.tab === tab;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-selected", active ? "true" : "false");
+  });
+  loadTasks();
+}
+
 /* ── UI helpers ── */
 function showLoading() {
   taskList.innerHTML = `
@@ -204,7 +243,31 @@ function updateRoadBar() {
   } else {
     roadBar.textContent = "▶ " + ROAD_LINES[Math.floor(Math.random() * ROAD_LINES.length)] + " ◀";
   }
-  document.getElementById("taskCount").textContent = toPersianNum(tasks.length);
+  document.getElementById("taskCount").textContent = toPersianNum(filteredTasks().length);
+}
+
+function renderTagFilter() {
+  const tags = collectTags(tasks);
+  tagFilter.innerHTML = "";
+
+  function addChip(label, value) {
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "tag-chip" + (selectedTag === value ? " active" : "");
+    chip.dataset.tag = value;
+    chip.textContent = label;
+    chip.addEventListener("click", () => {
+      selectedTag = value;
+      renderTagFilter();
+      renderTasks();
+      updateRoadBar();
+    });
+    tagFilter.appendChild(chip);
+  }
+
+  addChip("همه", "");
+  tags.forEach((tag) => addChip(tag, tag));
+  tagFilter.classList.toggle("hidden", tags.length === 0);
 }
 
 /* ── Modal: create / edit task ── */
@@ -215,6 +278,8 @@ function openCreateModal() {
   document.getElementById("taskDesc").value  = "";
   clearDueFields();
   document.getElementById("taskPriority").value = "2";
+  document.getElementById("taskDuration").value = "short";
+  document.getElementById("taskTag").value = "";
   taskModal.classList.remove("hidden");
   setTimeout(() => document.getElementById("taskTitle").focus(), 50);
 }
@@ -229,6 +294,8 @@ async function openEditModal(id) {
     document.getElementById("taskDesc").value     = task.description || "";
     setDueFromTask(task);
     document.getElementById("taskPriority").value = String(task.priority || 2);
+    document.getElementById("taskDuration").value = task.duration_type || "short";
+    document.getElementById("taskTag").value      = task.tag || "";
     setTimeout(() => document.getElementById("taskTitle").focus(), 50);
   } catch {
     closeModal();
@@ -245,10 +312,13 @@ function buildPayload() {
   const title       = document.getElementById("taskTitle").value.trim();
   const description = document.getElementById("taskDesc").value.trim();
   const priority    = parseInt(document.getElementById("taskPriority").value, 10);
-  const payload     = { title, priority };
+  const duration_type = document.getElementById("taskDuration").value;
+  const tagRaw      = document.getElementById("taskTag").value.trim();
+  const payload     = { title, priority, duration_type };
 
   /* Only send description if it has content — avoids null validation errors */
   if (description) payload.description = description;
+  if (tagRaw) payload.tag = tagRaw;
 
   if (hasDue.checked) {
     payload.due_date = Jalali.toISO(
@@ -363,11 +433,86 @@ async function removeTask(task) {
   }
 }
 
+async function toggleComplete(task) {
+  try {
+    await updateTask(task.id, { is_completed: !task.is_completed });
+    await loadTasks();
+  } catch {
+    showToast("خطا در به‌روزرسانی 😕", true);
+  }
+}
+
+async function restoreTask(task) {
+  try {
+    await updateTask(task.id, { is_deleted: false });
+    await loadTasks();
+  } catch {
+    showToast("خطا در به‌روزرسانی 😕", true);
+  }
+}
+
 /* ── Render ── */
+function buildTaskCard(task) {
+  const p   = PRIORITY[task.priority] || PRIORITY[2];
+  const due = formatJalaliDate(task.due_date);
+  const isDone = task.is_completed;
+  const isDeleted = currentTab === "deleted";
+
+  const el = document.createElement("div");
+  el.className = `task priority-${p.cls}${isDone ? " completed" : ""}`;
+  el.innerHTML = `
+    ${isDeleted ? "" : `<button type="button" class="complete-circle${isDone ? " done" : ""}" title="is_completed" aria-label="is_completed"></button>`}
+    <div class="task-body">
+      <span class="task-title">${escapeHtml(task.title)}</span>
+      ${task.description ? `<span class="task-desc">${escapeHtml(task.description)}</span>` : ""}
+      <div class="task-meta">
+        <span class="badge ${p.cls}">${p.emoji} ${p.label}</span>
+        ${due ? `<span class="badge date">📅 ${due}</span>` : ""}
+        ${task.tag ? `<span class="badge tag">🏷️ ${escapeHtml(task.tag)}</span>` : ""}
+      </div>
+    </div>
+    <div class="task-actions">
+      ${isDeleted
+        ? `<button class="btn-icon restore restore-btn" type="button" title="is_deleted">↩</button>`
+        : `<button class="btn-icon edit edit-btn" type="button" title="ویرایش">✎</button>
+           <button class="btn-icon del del-btn" type="button" title="حذف">✕</button>`}
+    </div>
+  `;
+
+  if (isDeleted) {
+    el.querySelector(".restore-btn").addEventListener("click", () => restoreTask(task));
+  } else {
+    el.querySelector(".complete-circle").addEventListener("click", () => toggleComplete(task));
+    el.querySelector(".edit-btn").addEventListener("click", () => openEditModal(task.id));
+    el.querySelector(".del-btn").addEventListener("click", () => removeTask(task));
+  }
+
+
+  return el;
+}
+
+function renderSection(title, sectionTasks, container) {
+  if (sectionTasks.length === 0) return;
+
+  const section = document.createElement("div");
+  section.className = "task-section";
+  section.innerHTML = `
+    <h3 class="section-title">${title}
+      <span class="section-count">${toPersianNum(sectionTasks.length)}</span>
+    </h3>
+  `;
+  const list = document.createElement("div");
+  list.className = "section-tasks";
+  sectionTasks.forEach((task) => list.appendChild(buildTaskCard(task)));
+  section.appendChild(list);
+  container.appendChild(section);
+}
+
 function renderTasks() {
   taskList.innerHTML = "";
+  const visible = filteredTasks();
 
-  if (tasks.length === 0) {
+  if (visible.length === 0) {
     taskList.innerHTML = `
       <div class="empty">
         <div class="empty-icon">🛤️</div>
@@ -377,31 +522,11 @@ function renderTasks() {
     return;
   }
 
-  tasks.forEach((task) => {
-    const p   = PRIORITY[task.priority] || PRIORITY[2];
-    const due = formatJalaliDate(task.due_date);
+  const shortTasks = visible.filter((t) => (t.duration_type || "short") === "short");
+  const longTasks  = visible.filter((t) => t.duration_type === "long");
 
-    const el = document.createElement("div");
-    el.className = `task priority-${p.cls}`;
-    el.innerHTML = `
-      <div class="task-body">
-        <span class="task-title">${escapeHtml(task.title)}</span>
-        ${task.description ? `<span class="task-desc">${escapeHtml(task.description)}</span>` : ""}
-        <div class="task-meta">
-          <span class="badge ${p.cls}">${p.emoji} ${p.label}</span>
-          ${due ? `<span class="badge date">📅 ${due}</span>` : ""}
-        </div>
-      </div>
-      <div class="task-actions">
-        <button class="btn-icon edit edit-btn" type="button" title="ویرایش">✎</button>
-        <button class="btn-icon del del-btn" type="button" title="حذف">✕</button>
-      </div>
-    `;
-
-    el.querySelector(".edit-btn").addEventListener("click", () => openEditModal(task.id));
-    el.querySelector(".del-btn").addEventListener("click", () => removeTask(task));
-    taskList.appendChild(el);
-  });
+  renderSection("Short", shortTasks, taskList);
+  renderSection("Long", longTasks, taskList);
 }
 
 /* ── Load ── */
@@ -417,7 +542,8 @@ async function loadUser() {
 async function loadTasks() {
   showLoading();
   try {
-    tasks = await fetchTasks();
+    tasks = await fetchTasksForTab(currentTab);
+    renderTagFilter();
     renderTasks();
     updateRoadBar();
   } catch {
