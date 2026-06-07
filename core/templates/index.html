@@ -169,6 +169,15 @@
         <h2>▸ کارهای جاده</h2>
         <span class="count-badge" id="taskCount">۰</span>
       </div>
+
+      <div class="task-tabs" role="tablist">
+        <button type="button" class="task-tab active" data-tab="active" role="tab" aria-selected="true">tasks</button>
+        <button type="button" class="task-tab" data-tab="completed" role="tab" aria-selected="false">completed</button>
+        <button type="button" class="task-tab" data-tab="deleted" role="tab" aria-selected="false">deleted</button>
+      </div>
+
+      <div class="tag-filter hidden" id="tagFilter"></div>
+
       <main id="taskList" class="task-list" aria-live="polite"></main>
     </section>
 
@@ -214,6 +223,15 @@
           <option value="2" selected>☕ معمولی — امروز</option>
           <option value="3">🔥 فوری — الان!</option>
         </select>
+
+        <label for="taskDuration">▸ duration_type</label>
+        <select id="taskDuration">
+          <option value="short" selected>Short</option>
+          <option value="long">Long</option>
+        </select>
+
+        <label for="taskTag">▸ tag</label>
+        <input id="taskTag" type="text" maxlength="30" placeholder="(اختیاری)">
 
         <div class="modal-actions">
           <button type="button" class="btn-ghost" id="cancelBtn">[ لغو ]</button>
