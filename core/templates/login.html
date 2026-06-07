@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ورود — کارات</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <script defer src="{% static 'api.js' %}"></script>
+  <script defer src="{% static 'auth.js' %}"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="cozy-bg">
+
+  <!-- star decorations -->
+  <div class="px-star" style="top:10%;right:8%;animation-delay:0s;font-size:1.5rem">✦</div>
+  <div class="px-star" style="top:15%;left:6%;animation-delay:1s">✦</div>
+  <div class="px-star" style="top:70%;right:5%;animation-delay:0.5s">✦</div>
+  <div class="px-star" style="top:80%;left:8%;animation-delay:1.5s;font-size:0.8rem">✦</div>
+  <div class="px-star" style="top:45%;right:3%;animation-delay:2s;font-size:0.9rem">✦</div>
+
+  <!-- retro corner labels -->
+  <div style="position:fixed;top:16px;right:20px;font-family:'Press Start 2P',monospace;font-size:0.4rem;color:#2a2a55;letter-spacing:2px;pointer-events:none;">KARAT v1.0</div>
+  <div style="position:fixed;bottom:16px;left:20px;font-family:'Press Start 2P',monospace;font-size:0.4rem;color:#2a2a55;letter-spacing:2px;pointer-events:none;">INSERT COIN</div>
+
+  <main class="auth-shell">
+    <div class="auth-card">
+
+      <!-- pixel road -->
+      <svg width="64" height="64" viewBox="0 0 11 11" xmlns="http://www.w3.org/2000/svg"
+           style="image-rendering:pixelated;display:block;margin:0 auto 16px;animation:float-px 2s steps(4) infinite;">
+        <rect x="0" y="0" width="11" height="11" fill="#1a3020"/>
+        <rect x="0" y="0" width="1" height="1" fill="#1e3824"/>
+        <rect x="2" y="1" width="1" height="1" fill="#1e3824"/>
+        <rect x="9" y="2" width="1" height="1" fill="#1e3824"/>
+        <rect x="1" y="8" width="1" height="1" fill="#1e3824"/>
+        <rect x="8" y="9" width="1" height="1" fill="#1e3824"/>
+        <rect x="4" y="0" width="3" height="11" fill="#3a3a3a"/>
+        <rect x="4" y="0" width="1" height="11" fill="#2a2a2a"/>
+        <rect x="6" y="0" width="1" height="11" fill="#2a2a2a"/>
+        <rect x="5" y="0" width="1" height="2" fill="#f5d200"/>
+        <rect x="5" y="3" width="1" height="2" fill="#f5d200"/>
+        <rect x="5" y="6" width="1" height="2" fill="#f5d200"/>
+        <rect x="5" y="9" width="1" height="2" fill="#f5d200"/>
+        <rect x="4" y="4" width="3" height="4" fill="#38beff"/>
+        <rect x="4" y="4" width="3" height="1" fill="#1a1a35"/>
+        <rect x="4" y="5" width="1" height="1" fill="#c084fc"/>
+        <rect x="6" y="5" width="1" height="1" fill="#c084fc"/>
+        <rect x="4" y="7" width="1" height="1" fill="#f5d200"/>
+        <rect x="6" y="7" width="1" height="1" fill="#f5d200"/>
+        <rect x="4" y="8" width="3" height="1" fill="#ff4f7b" opacity="0.6"/>
+      </svg>
+
+      <h1>کارات</h1>
+      <p class="greeting">خوش اومدی! بیا کارهامون رو مرتب کنیم</p>
+
+      <div class="tabs">
+        <button type="button" id="loginTab" class="tab active">[ ورود ]</button>
+        <button type="button" id="registerTab" class="tab">[ ثبت‌نام ]</button>
+      </div>
+
+      <p id="authError" class="error hidden" role="alert"></p>
+
+      <form id="loginForm" class="form">
+        <label for="loginUsername">▸ نام کاربری</label>
+        <input id="loginUsername" type="text" autocomplete="username" required placeholder="username">
+
+        <label for="loginPassword">▸ رمز عبور</label>
+        <input id="loginPassword" type="password" autocomplete="current-password" required placeholder="••••••••">
+
+        <button type="submit" class="btn-primary full">[ ورود به سیستم ]</button>
+      </form>
+
+      <form id="registerForm" class="form hidden">
+        <label for="registerName">▸ نام شما</label>
+        <input id="registerName" type="text" autocomplete="name" required placeholder="مثلاً سارا">
+
+        <label for="registerUsername">▸ نام کاربری</label>
+        <input id="registerUsername" type="text" autocomplete="username" required placeholder="username">
+
+        <label for="registerPassword">▸ رمز عبور</label>
+        <input id="registerPassword" type="password" autocomplete="new-password" required placeholder="حداقل ۸ کاراکتر">
+
+        <button type="submit" class="btn-primary full">[ ساخت حساب جدید ]</button>
+      </form>
+
+    </div>
+  </main>
+
+</body>
+</html>

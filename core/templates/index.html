@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>کارات</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <script defer src="{% static 'jalali.js' %}"></script>
+  <script defer src="{% static 'api.js' %}"></script>
+  <script defer src="{% static 'app.js' %}"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="cozy-bg">
+
+  <!-- pixel star decorations -->
+  <div class="px-star" style="top:8%;right:5%;animation-delay:0s">✦</div>
+  <div class="px-star" style="top:22%;left:4%;animation-delay:0.8s">✦</div>
+  <div class="px-star" style="top:60%;right:3%;animation-delay:1.4s">✦</div>
+  <div class="px-star" style="top:80%;left:6%;animation-delay:0.3s">✦</div>
+
+  <div class="shell">
+
+    <header class="hero">
+
+      <!--
+        Road of Life — pixel art SVG
+        A winding road going from bottom to top-right with:
+        - grass/earth on sides
+        - mountains in bg
+        - a tiny pixel car on the road
+        - sun top-left
+        - a tree and a house landmark
+      -->
+      <svg class="pixel-house" width="96" height="96" viewBox="0 0 24 24"
+           xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;">
+
+        <!-- sky -->
+        <rect x="0" y="0" width="24" height="14" fill="#1a2a4a"/>
+
+        <!-- stars in sky -->
+        <rect x="1"  y="1" width="1" height="1" fill="#f5d200" opacity="0.8"/>
+        <rect x="5"  y="2" width="1" height="1" fill="#f5d200" opacity="0.6"/>
+        <rect x="11" y="1" width="1" height="1" fill="#f5d200" opacity="0.9"/>
+        <rect x="18" y="3" width="1" height="1" fill="#f5d200" opacity="0.7"/>
+        <rect x="22" y="1" width="1" height="1" fill="#f5d200" opacity="0.5"/>
+
+        <!-- moon -->
+        <rect x="20" y="1" width="3" height="3" fill="#e8e8ff" opacity="0.9"/>
+        <rect x="21" y="1" width="2" height="3" fill="#1a2a4a"/>
+
+        <!-- mountains bg -->
+        <rect x="0"  y="8"  width="1" height="6" fill="#2a3a5a"/>
+        <rect x="1"  y="7"  width="1" height="7" fill="#2a3a5a"/>
+        <rect x="2"  y="6"  width="1" height="8" fill="#2a3a5a"/>
+        <rect x="3"  y="7"  width="1" height="7" fill="#2a3a5a"/>
+        <rect x="4"  y="8"  width="2" height="6" fill="#2a3a5a"/>
+        <rect x="13" y="9"  width="1" height="5" fill="#1e3050"/>
+        <rect x="14" y="7"  width="1" height="7" fill="#1e3050"/>
+        <rect x="15" y="6"  width="1" height="8" fill="#1e3050"/>
+        <rect x="16" y="7"  width="1" height="7" fill="#1e3050"/>
+        <rect x="17" y="8"  width="2" height="6" fill="#1e3050"/>
+        <rect x="19" y="9"  width="5" height="5" fill="#1e3050"/>
+        <!-- mountain snow caps -->
+        <rect x="2"  y="6" width="1" height="1" fill="#c8d8f0" opacity="0.7"/>
+        <rect x="15" y="6" width="1" height="1" fill="#c8d8f0" opacity="0.7"/>
+
+        <!-- ground / grass -->
+        <rect x="0" y="14" width="24" height="10" fill="#1a3020"/>
+        <!-- grass texture -->
+        <rect x="0"  y="14" width="1" height="1" fill="#1e3824"/>
+        <rect x="3"  y="15" width="1" height="1" fill="#1e3824"/>
+        <rect x="7"  y="14" width="1" height="1" fill="#243d28"/>
+        <rect x="12" y="15" width="1" height="1" fill="#1e3824"/>
+        <rect x="20" y="14" width="1" height="1" fill="#1e3824"/>
+        <rect x="22" y="16" width="1" height="1" fill="#1e3824"/>
+
+        <!--
+          Winding road — starts bottom-center, curves right, then left going up
+          Pixel road segments:
+        -->
+        <!-- segment 1: bottom straight up -->
+        <rect x="10" y="20" width="4" height="4" fill="#3a3a3a"/>
+        <rect x="11" y="20" width="2" height="4" fill="#444"/>
+        <!-- dashes on seg1 -->
+        <rect x="11" y="20" width="1" height="1" fill="#f5d200"/>
+        <rect x="11" y="22" width="1" height="1" fill="#f5d200"/>
+
+        <!-- segment 2: curve right -->
+        <rect x="12" y="17" width="8" height="4" fill="#3a3a3a"/>
+        <rect x="13" y="18" width="6" height="2" fill="#444"/>
+        <!-- dashes -->
+        <rect x="14" y="18" width="1" height="1" fill="#f5d200"/>
+        <rect x="17" y="18" width="1" height="1" fill="#f5d200"/>
+
+        <!-- segment 3: up from right -->
+        <rect x="18" y="13" width="4" height="5" fill="#3a3a3a"/>
+        <rect x="19" y="13" width="2" height="5" fill="#444"/>
+        <!-- dashes -->
+        <rect x="19" y="14" width="1" height="1" fill="#f5d200"/>
+        <rect x="19" y="16" width="1" height="1" fill="#f5d200"/>
+
+        <!-- segment 4: curve back left across top -->
+        <rect x="6"  y="10" width="14" height="4" fill="#3a3a3a"/>
+        <rect x="7"  y="11" width="12" height="2" fill="#444"/>
+        <!-- dashes -->
+        <rect x="8"  y="11" width="1" height="1" fill="#f5d200"/>
+        <rect x="12" y="11" width="1" height="1" fill="#f5d200"/>
+        <rect x="16" y="11" width="1" height="1" fill="#f5d200"/>
+
+        <!-- segment 5: continue left to horizon -->
+        <rect x="2" y="9" width="6" height="3" fill="#3a3a3a"/>
+        <rect x="3" y="9" width="4" height="2" fill="#444"/>
+
+        <!-- road borders (white lines on edges) -->
+        <rect x="10" y="20" width="1" height="4" fill="#555"/>
+        <rect x="13" y="20" width="1" height="4" fill="#555"/>
+
+        <!-- tree on left side -->
+        <!-- trunk -->
+        <rect x="6" y="17" width="1" height="3" fill="#7a4a1a"/>
+        <!-- foliage -->
+        <rect x="5" y="14" width="3" height="3" fill="#2d7a3a"/>
+        <rect x="4" y="15" width="5" height="2" fill="#2d7a3a"/>
+        <rect x="5" y="13" width="3" height="2" fill="#39a049"/>
+        <rect x="6" y="12" width="1" height="2" fill="#39a049"/>
+
+        <!-- tiny house on right side near road -->
+        <!-- house body -->
+        <rect x="20" y="17" width="4" height="3" fill="#c084fc" opacity="0.9"/>
+        <!-- roof -->
+        <rect x="20" y="15" width="4" height="2" fill="#7a4aac"/>
+        <rect x="21" y="14" width="2" height="2" fill="#7a4aac"/>
+        <!-- door -->
+        <rect x="21" y="18" width="1" height="2" fill="#1a1a35"/>
+        <!-- window -->
+        <rect x="22" y="18" width="1" height="1" fill="#f5d200" opacity="0.8"/>
+
+        <!-- pixel car on the winding road (segment 2) -->
+        <!-- car body -->
+        <rect x="15" y="17" width="3" height="2" fill="#38beff"/>
+        <!-- windshield -->
+        <rect x="15" y="17" width="3" height="1" fill="#1a2a4a"/>
+        <!-- car lights -->
+        <rect x="15" y="18" width="1" height="1" fill="#f5d200"/>
+        <rect x="17" y="18" width="1" height="1" fill="#f5d200"/>
+        <!-- neon underglow -->
+        <rect x="15" y="19" width="3" height="1" fill="#ff4f7b" opacity="0.5"/>
+
+        <!-- horizon glow line -->
+        <rect x="0" y="13" width="24" height="1" fill="#38beff" opacity="0.15"/>
+
+      </svg>
+
+      <h1>کارات</h1>
+      <p class="greeting" id="userGreeting">به خونه‌ی کارهات خوش اومدی</p>
+
+      <div class="hero-btns">
+        <button type="button" class="profile-btn" id="profileBtn" title="پروفایل">[ پروفایل ]</button>
+        <button type="button" class="logout-btn"  id="logoutBtn"  title="خروج">[ خروج ]</button>
+      </div>
+    </header>
+
+    <div class="fun-bar" id="funBar">▶ جاده‌ی زندگی رو تو خودت می‌سازی ◀</div>
+
+    <section class="card main-card">
+      <div class="card-top">
+        <h2>▸ کارهای جاده</h2>
+        <span class="count-badge" id="taskCount">۰</span>
+      </div>
+      <main id="taskList" class="task-list" aria-live="polite"></main>
+    </section>
+
+  </div>
+
+  <!-- FAB -->
+  <button type="button" class="fab" id="addBtn" aria-label="کار جدید">
+    <span class="fab-plus">+</span>
+    <span>کار جدید</span>
+  </button>
+
+  <!-- ── Task Modal ── -->
+  <div class="modal hidden" id="taskModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-card">
+      <h2 id="modalTitle">▸ کار جدید</h2>
+      <form id="taskForm" class="task-form">
+
+        <label for="taskTitle">▸ عنوان *</label>
+        <input id="taskTitle" type="text" maxlength="200" required placeholder="مثلاً خرید میوه از بازار">
+
+        <label for="taskDesc">▸ توضیحات</label>
+        <textarea id="taskDesc" rows="3" placeholder="جزئیات بیشتر... (اختیاری)"></textarea>
+
+        <label class="check-row" style="margin-top:12px;">
+          <input type="checkbox" id="hasDue">
+          ▸ موعد تحویل دارم &nbsp;<span class="hint">(اختیاری)</span>
+        </label>
+
+        <div id="dueFields" class="due-fields hidden">
+          <div class="jalali-grid">
+            <div><label for="dueYear">سال</label><select id="dueYear"></select></div>
+            <div><label for="dueMonth">ماه</label><select id="dueMonth"></select></div>
+            <div><label for="dueDay">روز</label><select id="dueDay"></select></div>
+            <div><label for="dueHour">ساعت</label><select id="dueHour"></select></div>
+            <div><label for="dueMinute">دقیقه</label><select id="dueMinute"></select></div>
+          </div>
+        </div>
+
+        <label for="taskPriority">▸ اولویت</label>
+        <select id="taskPriority">
+          <option value="1">🌿 کم‌اهمیت — وقت داره</option>
+          <option value="2" selected>☕ معمولی — امروز</option>
+          <option value="3">🔥 فوری — الان!</option>
+        </select>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" id="cancelBtn">[ لغو ]</button>
+          <button type="submit" class="btn-primary" id="saveBtn">[ ذخیره ]</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── Profile Modal ── -->
+  <div class="modal hidden" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+    <div class="modal-backdrop" id="profileBackdrop"></div>
+    <div class="modal-card">
+      <h2 id="profileTitle">▸ پروفایل من 👤</h2>
+      <p id="profileError" class="error hidden"></p>
+      <form id="profileForm" class="task-form">
+
+        <label for="profileName">▸ نام</label>
+        <input id="profileName" type="text" maxlength="70" required placeholder="مثلاً سارا">
+
+        <label for="profileUsername">▸ نام کاربری</label>
+        <input id="profileUsername" type="text" maxlength="20" required placeholder="username">
+
+        <label for="profilePassword">▸ رمز عبور جدید</label>
+        <input id="profilePassword" type="password" placeholder="خالی بذار اگه تغییر نمی‌خوای">
+
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" id="profileCancelBtn">[ لغو ]</button>
+          <button type="submit" class="btn-primary" id="profileSaveBtn">[ ذخیره ]</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast hidden" id="toast" role="status"></div>
+
+</body>
+</html>
