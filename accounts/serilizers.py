@@ -27,12 +27,21 @@ class CustomUserChangePasswordSerializer(serializers.Serializer):
     new_password1 = serializers.CharField(required=True)
     new_password2 = serializers.CharField(required=True)
 
-    def validate(self, data):
-         if data['new_password1'] != data['new_password2']:
-              raise serializers.ValidationError("New passwords are not the same!")
+    def validate(self, attrs):
+        user = self.instance
+        old_password = attrs.get("old_password")
+        new_password1 = attrs.get("new_password1")
+        new_password2 = attrs.get("new_password2")
+
+        if not user.check_password(old_password):
+             raise serializers.ValidationError({"old_password": "Incorrect old password."})
+        if not new_password1==new_password2:
+             raise serializers.ValidationError({"new_password2": "Passwords do not match."})
+        
+        return attrs
 
     def update(self, instance, validated_data):
-            new_password = validated_data.get("new_password1")
-            instance.set_password(new_password)
-            instance.save()
-            return instance
+        new_password = validated_data["new_password1"]
+        instance.set_password(new_password)
+        instance.save()
+        return instance
