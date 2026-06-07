@@ -3,7 +3,6 @@ from rest_framework import serializers
 from .models import TaskModel
 
 class TaskSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(required=True, max_length=200)
     description = serializers.CharField(required=False, allow_blank=True,
                                         allow_null=True, default=None)
@@ -22,14 +21,7 @@ class TaskSerializer(serializers.Serializer):
         instance.due_date = validated_data.get("due_date", instance.due_date)
         instance.priority = validated_data.get("priority", instance.priority)
         instance.is_completed = validated_data.get("is_completed", instance.is_completed)
+        instance.is_deleted = validated_data.get("is_deleted", instance.is_deleted)
 
-        instance.save()
-        return instance
-
-class TaskSofteDeletedSerializer(serializers.Serializer):
-    is_deleted = serializers.BooleanField(default=True)
-
-    def update(self, instance, validated_data):
-        instance.is_deleted = validated_data["is_deleted"]
         instance.save()
         return instance
