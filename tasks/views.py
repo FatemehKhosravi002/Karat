@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -51,7 +49,7 @@ class TasksListView(APIView):
     permission_classes=[IsAuthenticated]
 
     def get(self, request):
-        tasks = TaskModel.objects.filter(user=request.user, is_deleted=False, is_completed=timedelta(days=1)).values("duration_type","tag")
+        tasks = TaskModel.objects.filter(user=request.user, is_deleted=False, is_completed=False)
         serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data)
 
@@ -68,7 +66,6 @@ class TaskCompletedListView(APIView):
     def get(self, request):
         tasks = TaskModel.objects.filter(user=request.user, is_completed=True)
         count = tasks.count()
-        tasks=tasks.values("duration_type","tag")
         serializer = TaskSerializer(tasks, many=True)
         return Response(
     {
@@ -82,6 +79,6 @@ class TaskSoftDeletedListView(APIView):
     permission_classes=[IsAuthenticated]
 
     def get(self, request):
-        tasks = TaskModel.objects.filter(user=request.user, is_deleted=True).values("duration_type","tag")
+        tasks = TaskModel.objects.filter(user=request.user, is_deleted=True)
         serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data)

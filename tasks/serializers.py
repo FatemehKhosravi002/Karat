@@ -11,6 +11,8 @@ class TaskSerializer(serializers.Serializer):
     priority = serializers.ChoiceField(choices=TaskModel.PriorityChoices, required=False, default=TaskModel.PriorityChoices.MEDIUM)
     is_completed = serializers.BooleanField(required=False)
     is_deleted = serializers.BooleanField(required=False)
+    duration_type = serializers.ChoiceField(choices=TaskModel.Duration_TypeChoices, required=False, default=TaskModel.Duration_TypeChoices.SHORT)
+    tag = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=30, default=None)
 
     def create(self, validated_data):
         return TaskModel.objects.create(**validated_data)
@@ -22,6 +24,8 @@ class TaskSerializer(serializers.Serializer):
         instance.priority = validated_data.get("priority", instance.priority)
         instance.is_completed = validated_data.get("is_completed", instance.is_completed)
         instance.is_deleted = validated_data.get("is_deleted", instance.is_deleted)
+        instance.duration_type = validated_data.get("duration_type", instance.duration_type)
+        instance.tag = validated_data.get("tag", instance.tag)
 
         instance.save()
         return instance
