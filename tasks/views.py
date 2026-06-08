@@ -2,9 +2,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 from .serializers import TaskSerializer
 from .models import TaskModel
+
+from jdatetime import date as jdate
 
 class TaskDetailView(APIView):
     permission_classes=[IsAuthenticated]
@@ -49,7 +52,10 @@ class TasksListView(APIView):
     permission_classes=[IsAuthenticated]
 
     def get(self, request):
-        tasks = TaskModel.objects.filter(user=request.user, is_deleted=False, is_completed=False)
+        tasks = TaskModel.objects.filter(user=request.user,
+                                         is_deleted=False).filter(
+                                             Q(is_completed=False)|Q(completed_at=jdate.today())
+                                         )#filtering tasks which are not completed OR are completed today
         serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data)
 
