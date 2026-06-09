@@ -36,7 +36,7 @@ class TaskModel(models.Model):
     is_deleted = models.BooleanField(default=False)
     duration_type = models.CharField(max_length=5, choices=Duration_TypeChoices, default=Duration_TypeChoices.SHORT)
     completed_at = jmodels.jDateField(null=True, blank=True)
-
+    tag = models.ForeignKey(TagModel, on_delete=models.CASCADE, related_name="tasks")
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
