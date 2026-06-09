@@ -3,206 +3,278 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>کارات</title>
+  <title>کارات 🛤️</title>
   {% load static %}
   <link rel="stylesheet" href="{% static 'style.css' %}">
   <script defer src="{% static 'jalali.js' %}"></script>
   <script defer src="{% static 'api.js' %}"></script>
   <script defer src="{% static 'app.js' %}"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body class="cozy-bg">
 
-  <!-- pixel star decorations -->
-  <div class="px-star" style="top:8%;right:5%;animation-delay:0s">✦</div>
-  <div class="px-star" style="top:22%;left:4%;animation-delay:0.8s">✦</div>
-  <div class="px-star" style="top:60%;right:3%;animation-delay:1.4s">✦</div>
-  <div class="px-star" style="top:80%;left:6%;animation-delay:0.3s">✦</div>
+  <!-- Ambient stars -->
+  <div class="px-star" style="top:6%;right:4%;animation-delay:0s;font-size:1.2rem;color:#fbbf24">✦</div>
+  <div class="px-star" style="top:18%;left:3%;animation-delay:0.9s;color:#38bdf8">✦</div>
+  <div class="px-star" style="top:52%;right:2%;animation-delay:1.6s;font-size:0.9rem;color:#4ade80">✦</div>
+  <div class="px-star" style="top:75%;left:4%;animation-delay:0.4s;color:#fbbf24">✦</div>
+  <div class="px-star" style="top:88%;right:5%;animation-delay:2.1s;font-size:0.8rem;color:#c084fc">✦</div>
+
+  <!-- Corner labels -->
+  <div class="corner-label tl">KARAT v2.0</div>
+  <div class="corner-label bl">KEEP ROLLING ▶</div>
 
   <div class="shell">
 
+    <!-- ══ HERO ══ -->
     <header class="hero">
 
-      <!--
-        Road of Life — pixel art SVG
-        A winding road going from bottom to top-right with:
-        - grass/earth on sides
-        - mountains in bg
-        - a tiny pixel car on the road
-        - sun top-left
-        - a tree and a house landmark
-      -->
-      <svg class="pixel-house" width="96" height="96" viewBox="0 0 24 24"
+      <!-- Pixel road SVG -->
+      <svg class="pixel-house" width="110" height="110" viewBox="0 0 28 28"
            xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;">
+        <!-- Night sky -->
+        <rect width="28" height="28" fill="#1c1917"/>
+        <!-- Grid bg dots -->
+        <rect x="3"  y="3"  width="1" height="1" fill="#fbbf24" opacity="0.15"/>
+        <rect x="11" y="6"  width="1" height="1" fill="#fbbf24" opacity="0.15"/>
+        <rect x="20" y="4"  width="1" height="1" fill="#fbbf24" opacity="0.15"/>
+        <rect x="25" y="9"  width="1" height="1" fill="#38bdf8" opacity="0.15"/>
 
-        <!-- sky -->
-        <rect x="0" y="0" width="24" height="14" fill="#1a2a4a"/>
+        <!-- Stars -->
+        <rect x="1"  y="1" width="1" height="1" fill="#fbbf24" opacity="0.8"/>
+        <rect x="6"  y="2" width="1" height="1" fill="#fbbf24" opacity="0.5"/>
+        <rect x="13" y="1" width="1" height="1" fill="#fbbf24" opacity="0.9"/>
+        <rect x="19" y="2" width="1" height="1" fill="#38bdf8" opacity="0.7"/>
+        <rect x="24" y="1" width="1" height="1" fill="#fbbf24" opacity="0.6"/>
+        <rect x="26" y="3" width="1" height="1" fill="#c084fc" opacity="0.5"/>
 
-        <!-- stars in sky -->
-        <rect x="1"  y="1" width="1" height="1" fill="#f5d200" opacity="0.8"/>
-        <rect x="5"  y="2" width="1" height="1" fill="#f5d200" opacity="0.6"/>
-        <rect x="11" y="1" width="1" height="1" fill="#f5d200" opacity="0.9"/>
-        <rect x="18" y="3" width="1" height="1" fill="#f5d200" opacity="0.7"/>
-        <rect x="22" y="1" width="1" height="1" fill="#f5d200" opacity="0.5"/>
+        <!-- Moon -->
+        <rect x="23" y="1" width="3" height="3" fill="#fdf6ec" opacity="0.9"/>
+        <rect x="24" y="1" width="2" height="3" fill="#1c1917"/>
 
-        <!-- moon -->
-        <rect x="20" y="1" width="3" height="3" fill="#e8e8ff" opacity="0.9"/>
-        <rect x="21" y="1" width="2" height="3" fill="#1a2a4a"/>
+        <!-- Far mountains -->
+        <rect x="0"  y="9"  width="1" height="9"  fill="#2d2620"/>
+        <rect x="1"  y="8"  width="1" height="10" fill="#2d2620"/>
+        <rect x="2"  y="7"  width="2" height="11" fill="#2d2620"/>
+        <rect x="4"  y="8"  width="1" height="10" fill="#2d2620"/>
+        <rect x="5"  y="9"  width="2" height="9"  fill="#2d2620"/>
+        <!-- Snow -->
+        <rect x="3"  y="7"  width="1" height="1"  fill="#e8f0ff" opacity="0.6"/>
 
-        <!-- mountains bg -->
-        <rect x="0"  y="8"  width="1" height="6" fill="#2a3a5a"/>
-        <rect x="1"  y="7"  width="1" height="7" fill="#2a3a5a"/>
-        <rect x="2"  y="6"  width="1" height="8" fill="#2a3a5a"/>
-        <rect x="3"  y="7"  width="1" height="7" fill="#2a3a5a"/>
-        <rect x="4"  y="8"  width="2" height="6" fill="#2a3a5a"/>
-        <rect x="13" y="9"  width="1" height="5" fill="#1e3050"/>
-        <rect x="14" y="7"  width="1" height="7" fill="#1e3050"/>
-        <rect x="15" y="6"  width="1" height="8" fill="#1e3050"/>
-        <rect x="16" y="7"  width="1" height="7" fill="#1e3050"/>
-        <rect x="17" y="8"  width="2" height="6" fill="#1e3050"/>
-        <rect x="19" y="9"  width="5" height="5" fill="#1e3050"/>
-        <!-- mountain snow caps -->
-        <rect x="2"  y="6" width="1" height="1" fill="#c8d8f0" opacity="0.7"/>
-        <rect x="15" y="6" width="1" height="1" fill="#c8d8f0" opacity="0.7"/>
+        <rect x="14" y="10" width="1" height="8"  fill="#231f1b"/>
+        <rect x="15" y="8"  width="2" height="10" fill="#231f1b"/>
+        <rect x="17" y="9"  width="2" height="9"  fill="#231f1b"/>
+        <rect x="19" y="10" width="4" height="8"  fill="#231f1b"/>
+        <!-- Snow -->
+        <rect x="16" y="8"  width="1" height="1"  fill="#e8f0ff" opacity="0.6"/>
 
-        <!-- ground / grass -->
-        <rect x="0" y="14" width="24" height="10" fill="#1a3020"/>
-        <!-- grass texture -->
-        <rect x="0"  y="14" width="1" height="1" fill="#1e3824"/>
-        <rect x="3"  y="15" width="1" height="1" fill="#1e3824"/>
-        <rect x="7"  y="14" width="1" height="1" fill="#243d28"/>
-        <rect x="12" y="15" width="1" height="1" fill="#1e3824"/>
-        <rect x="20" y="14" width="1" height="1" fill="#1e3824"/>
-        <rect x="22" y="16" width="1" height="1" fill="#1e3824"/>
+        <!-- Ground -->
+        <rect x="0" y="18" width="28" height="10" fill="#1a3020"/>
+        <!-- Grass texture -->
+        <rect x="0"  y="18" width="1" height="1" fill="#1e3824"/>
+        <rect x="4"  y="19" width="1" height="1" fill="#1e3824"/>
+        <rect x="9"  y="18" width="1" height="1" fill="#243d28"/>
+        <rect x="16" y="19" width="1" height="1" fill="#1e3824"/>
+        <rect x="23" y="18" width="1" height="1" fill="#1e3824"/>
+        <rect x="26" y="20" width="1" height="1" fill="#243d28"/>
 
-        <!--
-          Winding road — starts bottom-center, curves right, then left going up
-          Pixel road segments:
-        -->
-        <!-- segment 1: bottom straight up -->
-        <rect x="10" y="20" width="4" height="4" fill="#3a3a3a"/>
-        <rect x="11" y="20" width="2" height="4" fill="#444"/>
-        <!-- dashes on seg1 -->
-        <rect x="11" y="20" width="1" height="1" fill="#f5d200"/>
-        <rect x="11" y="22" width="1" height="1" fill="#f5d200"/>
+        <!-- ── Road system ── -->
+        <!-- Road segment 1: bottom straight up -->
+        <rect x="11" y="22" width="6" height="6" fill="#3d342c"/>
+        <rect x="12" y="22" width="4" height="6" fill="#4a3f35"/>
+        <!-- Dashes -->
+        <rect x="13" y="22" width="2" height="2" fill="#fbbf24"/>
+        <rect x="13" y="25" width="2" height="2" fill="#fbbf24"/>
 
-        <!-- segment 2: curve right -->
-        <rect x="12" y="17" width="8" height="4" fill="#3a3a3a"/>
-        <rect x="13" y="18" width="6" height="2" fill="#444"/>
-        <!-- dashes -->
-        <rect x="14" y="18" width="1" height="1" fill="#f5d200"/>
-        <rect x="17" y="18" width="1" height="1" fill="#f5d200"/>
+        <!-- Road segment 2: curves right -->
+        <rect x="14" y="18" width="14" height="5" fill="#3d342c"/>
+        <rect x="15" y="19" width="12" height="3" fill="#4a3f35"/>
+        <!-- Dashes -->
+        <rect x="17" y="19" width="2" height="2" fill="#fbbf24"/>
+        <rect x="22" y="19" width="2" height="2" fill="#fbbf24"/>
 
-        <!-- segment 3: up from right -->
-        <rect x="18" y="13" width="4" height="5" fill="#3a3a3a"/>
-        <rect x="19" y="13" width="2" height="5" fill="#444"/>
-        <!-- dashes -->
-        <rect x="19" y="14" width="1" height="1" fill="#f5d200"/>
-        <rect x="19" y="16" width="1" height="1" fill="#f5d200"/>
+        <!-- Road segment 3: up-right -->
+        <rect x="22" y="13" width="6" height="6" fill="#3d342c"/>
+        <rect x="23" y="14" width="4" height="4" fill="#4a3f35"/>
+        <!-- Dashes -->
+        <rect x="24" y="14" width="2" height="2" fill="#fbbf24"/>
+        <rect x="24" y="17" width="2" height="1" fill="#fbbf24"/>
 
-        <!-- segment 4: curve back left across top -->
-        <rect x="6"  y="10" width="14" height="4" fill="#3a3a3a"/>
-        <rect x="7"  y="11" width="12" height="2" fill="#444"/>
-        <!-- dashes -->
-        <rect x="8"  y="11" width="1" height="1" fill="#f5d200"/>
-        <rect x="12" y="11" width="1" height="1" fill="#f5d200"/>
-        <rect x="16" y="11" width="1" height="1" fill="#f5d200"/>
+        <!-- Road segment 4: left across top -->
+        <rect x="6"  y="12" width="18" height="5" fill="#3d342c"/>
+        <rect x="7"  y="13" width="16" height="3" fill="#4a3f35"/>
+        <!-- Dashes -->
+        <rect x="9"  y="13" width="2" height="2" fill="#fbbf24"/>
+        <rect x="14" y="13" width="2" height="2" fill="#fbbf24"/>
+        <rect x="19" y="13" width="2" height="2" fill="#fbbf24"/>
 
-        <!-- segment 5: continue left to horizon -->
-        <rect x="2" y="9" width="6" height="3" fill="#3a3a3a"/>
-        <rect x="3" y="9" width="4" height="2" fill="#444"/>
+        <!-- Road segment 5: down to left -->
+        <rect x="2" y="10" width="7" height="4" fill="#3d342c"/>
+        <rect x="3" y="10" width="5" height="3" fill="#4a3f35"/>
+        <!-- Dash -->
+        <rect x="4" y="10" width="2" height="2" fill="#fbbf24"/>
 
-        <!-- road borders (white lines on edges) -->
-        <rect x="10" y="20" width="1" height="4" fill="#555"/>
-        <rect x="13" y="20" width="1" height="4" fill="#555"/>
+        <!-- Road edge markers -->
+        <rect x="11" y="22" width="1" height="6" fill="#2d2620"/>
+        <rect x="16" y="22" width="1" height="6" fill="#2d2620"/>
 
-        <!-- tree on left side -->
-        <!-- trunk -->
-        <rect x="6" y="17" width="1" height="3" fill="#7a4a1a"/>
-        <!-- foliage -->
-        <rect x="5" y="14" width="3" height="3" fill="#2d7a3a"/>
-        <rect x="4" y="15" width="5" height="2" fill="#2d7a3a"/>
-        <rect x="5" y="13" width="3" height="2" fill="#39a049"/>
-        <rect x="6" y="12" width="1" height="2" fill="#39a049"/>
+        <!-- ── Tree (left side) ── -->
+        <rect x="7"  y="20" width="2" height="3" fill="#7a4a1a"/>
+        <rect x="5"  y="17" width="6" height="4" fill="#2d7a3a"/>
+        <rect x="4"  y="18" width="8" height="3" fill="#2d7a3a"/>
+        <rect x="5"  y="16" width="6" height="2" fill="#39a049"/>
+        <rect x="6"  y="14" width="4" height="3" fill="#39a049"/>
+        <rect x="7"  y="13" width="2" height="2" fill="#86efac"/>
 
-        <!-- tiny house on right side near road -->
-        <!-- house body -->
-        <rect x="20" y="17" width="4" height="3" fill="#c084fc" opacity="0.9"/>
-        <!-- roof -->
-        <rect x="20" y="15" width="4" height="2" fill="#7a4aac"/>
-        <rect x="21" y="14" width="2" height="2" fill="#7a4aac"/>
-        <!-- door -->
-        <rect x="21" y="18" width="1" height="2" fill="#1a1a35"/>
-        <!-- window -->
-        <rect x="22" y="18" width="1" height="1" fill="#f5d200" opacity="0.8"/>
+        <!-- ── House (right side) ── -->
+        <rect x="23" y="21" width="5" height="7" fill="#c084fc" opacity="0.85"/>
+        <rect x="23" y="18" width="5" height="4" fill="#7e22ce"/>
+        <rect x="24" y="17" width="3" height="2" fill="#7e22ce"/>
+        <rect x="25" y="16" width="1" height="2" fill="#7e22ce"/>
+        <!-- Door -->
+        <rect x="24" y="23" width="2" height="4" fill="#1c1917"/>
+        <!-- Window -->
+        <rect x="26" y="22" width="2" height="2" fill="#fbbf24" opacity="0.85"/>
+        <!-- Chimney smoke -->
+        <rect x="24" y="14" width="1" height="3" fill="#3d342c"/>
+        <rect x="24" y="13" width="2" height="1" fill="#7a6a58" opacity="0.5"/>
 
-        <!-- pixel car on the winding road (segment 2) -->
-        <!-- car body -->
-        <rect x="15" y="17" width="3" height="2" fill="#38beff"/>
-        <!-- windshield -->
-        <rect x="15" y="17" width="3" height="1" fill="#1a2a4a"/>
-        <!-- car lights -->
-        <rect x="15" y="18" width="1" height="1" fill="#f5d200"/>
-        <rect x="17" y="18" width="1" height="1" fill="#f5d200"/>
-        <!-- neon underglow -->
-        <rect x="15" y="19" width="3" height="1" fill="#ff4f7b" opacity="0.5"/>
+        <!-- ── Pixel car on road ── -->
+        <!-- Body -->
+        <rect x="16" y="18" width="5" height="3" fill="#38bdf8"/>
+        <!-- Windshield / roof -->
+        <rect x="17" y="18" width="3" height="1" fill="#1c1917"/>
+        <!-- Lights front -->
+        <rect x="16" y="19" width="1" height="1" fill="#fbbf24"/>
+        <!-- Lights back -->
+        <rect x="20" y="19" width="1" height="1" fill="#fb7185"/>
+        <!-- Neon underglow -->
+        <rect x="16" y="21" width="5" height="1" fill="#4ade80" opacity="0.6"/>
+        <!-- Wheels -->
+        <rect x="16" y="20" width="2" height="1" fill="#2d2620"/>
+        <rect x="19" y="20" width="2" height="1" fill="#2d2620"/>
 
-        <!-- horizon glow line -->
-        <rect x="0" y="13" width="24" height="1" fill="#38beff" opacity="0.15"/>
-
+        <!-- Horizon glow -->
+        <rect x="0" y="17" width="28" height="1" fill="#38bdf8" opacity="0.12"/>
       </svg>
 
       <h1>کارات</h1>
-      <p class="greeting" id="userGreeting">به خونه‌ی کارهات خوش اومدی</p>
+      <p class="greeting" id="userGreeting">به خونه‌ی کارهات خوش اومدی 🛤️</p>
 
       <div class="hero-btns">
-        <button type="button" class="profile-btn" id="profileBtn" title="پروفایل">[ پروفایل ]</button>
+        <button type="button" class="profile-btn" id="profileBtn" title="پروفایل">[ پروفایل 👤 ]</button>
         <button type="button" class="logout-btn"  id="logoutBtn"  title="خروج">[ خروج ]</button>
       </div>
     </header>
 
+    <!-- ══ FUN BAR ══ -->
     <div class="fun-bar" id="funBar">▶ جاده‌ی زندگی رو تو خودت می‌سازی ◀</div>
 
-    <section class="card main-card">
+    <!-- ══ STATS BAR ══ -->
+    <div class="stats-bar">
+      <div class="stat-chip s-active">
+        <span class="stat-num" id="statActive">۰</span>
+        <span class="stat-label">کار فعال</span>
+      </div>
+      <div class="stat-chip s-done">
+        <span class="stat-num" id="statDone">۰</span>
+        <span class="stat-label">تکمیل‌شده</span>
+      </div>
+      <div class="stat-chip s-urgent">
+        <span class="stat-num" id="statUrgent">۰</span>
+        <span class="stat-label">فوری 🔥</span>
+      </div>
+      <div class="stat-chip s-deleted">
+        <span class="stat-num" id="statDeleted">۰</span>
+        <span class="stat-label">حذف‌شده</span>
+      </div>
+    </div>
+
+    <!-- ══ PROGRESS BAR ══ -->
+    <div class="progress-wrap" title="پیشرفت کلی">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">پیشرفت: ۰٪</div>
+
+    <!-- ══ MAIN CARD ══ -->
+    <section class="card main-card" style="margin-top:16px;">
+
       <div class="card-top">
         <h2>▸ کارهای جاده</h2>
         <span class="count-badge" id="taskCount">۰</span>
       </div>
 
+      <!-- Tabs -->
       <div class="task-tabs" role="tablist">
-        <button type="button" class="task-tab active" data-tab="active" role="tab" aria-selected="true">tasks</button>
-        <button type="button" class="task-tab" data-tab="completed" role="tab" aria-selected="false">completed</button>
-        <button type="button" class="task-tab" data-tab="deleted" role="tab" aria-selected="false">deleted</button>
+        <button type="button" class="task-tab active" data-tab="active"    role="tab" aria-selected="true">⚡ فعال</button>
+        <button type="button" class="task-tab"         data-tab="completed" role="tab" aria-selected="false">✅ تکمیل</button>
+        <button type="button" class="task-tab"         data-tab="deleted"   role="tab" aria-selected="false">🗑 حذف</button>
       </div>
 
+      <!-- Search -->
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input"
+               placeholder="جستجو در کارها… (Ctrl+K)" autocomplete="off">
+      </div>
+
+      <!-- Tag filter -->
       <div class="tag-filter hidden" id="tagFilter"></div>
 
-      <main id="taskList" class="task-list" aria-live="polite"></main>
-    </section>
+      <!-- Filter/sort bar -->
+      <div class="filter-bar">
+        <span class="filter-label">مرتب‌سازی:</span>
+        <select id="sortSelect" class="filter-select">
+          <option value="priority">اولویت</option>
+          <option value="due">موعد تحویل</option>
+          <option value="created">تاریخ ساخت</option>
+        </select>
+      </div>
 
+      <!-- Task list -->
+      <main id="taskList" class="task-list" aria-live="polite"></main>
+
+    </section>
   </div>
 
-  <!-- FAB -->
+  <!-- ══ FAB ══ -->
   <button type="button" class="fab" id="addBtn" aria-label="کار جدید">
     <span class="fab-plus">+</span>
     <span>کار جدید</span>
   </button>
 
-  <!-- ── Task Modal ── -->
+  <!-- ══ TASK CREATE/EDIT MODAL ══ -->
   <div class="modal hidden" id="taskModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-backdrop" id="modalBackdrop"></div>
     <div class="modal-card">
-      <h2 id="modalTitle">▸ کار جدید</h2>
+      <h2 id="modalTitle">▸ کار جدید ✨</h2>
       <form id="taskForm" class="task-form">
 
         <label for="taskTitle">▸ عنوان *</label>
         <input id="taskTitle" type="text" maxlength="200" required placeholder="مثلاً خرید میوه از بازار">
+        <div class="char-count" id="titleCounter">0 / 200</div>
 
         <label for="taskDesc">▸ توضیحات</label>
-        <textarea id="taskDesc" rows="3" placeholder="جزئیات بیشتر... (اختیاری)"></textarea>
+        <textarea id="taskDesc" rows="3" placeholder="جزئیات بیشتر… (اختیاری)"></textarea>
 
-        <label class="check-row" style="margin-top:12px;">
+        <label for="taskPriority">▸ اولویت</label>
+        <select id="taskPriority">
+          <option value="1">🌿 کم‌اهمیت — وقت داره</option>
+          <option value="2" selected>☕ معمولی — امروز</option>
+          <option value="3">🔥 فوری — الان!</option>
+        </select>
+
+        <label for="taskDuration">▸ نوع مدت</label>
+        <select id="taskDuration">
+          <option value="short" selected>⚡ کوتاه‌مدت</option>
+          <option value="long">🗺️ بلندمدت</option>
+        </select>
+
+        <label for="taskTag">▸ برچسب</label>
+        <input id="taskTag" type="text" maxlength="30" placeholder="مثلاً: کار، خرید، خانه (اختیاری)">
+
+        <label class="check-row" for="hasDue">
           <input type="checkbox" id="hasDue">
           ▸ موعد تحویل دارم &nbsp;<span class="hint">(اختیاری)</span>
         </label>
@@ -217,22 +289,6 @@
           </div>
         </div>
 
-        <label for="taskPriority">▸ اولویت</label>
-        <select id="taskPriority">
-          <option value="1">🌿 کم‌اهمیت — وقت داره</option>
-          <option value="2" selected>☕ معمولی — امروز</option>
-          <option value="3">🔥 فوری — الان!</option>
-        </select>
-
-        <label for="taskDuration">▸ duration_type</label>
-        <select id="taskDuration">
-          <option value="short" selected>Short</option>
-          <option value="long">Long</option>
-        </select>
-
-        <label for="taskTag">▸ tag</label>
-        <input id="taskTag" type="text" maxlength="30" placeholder="(اختیاری)">
-
         <div class="modal-actions">
           <button type="button" class="btn-ghost" id="cancelBtn">[ لغو ]</button>
           <button type="submit" class="btn-primary" id="saveBtn">[ ذخیره ]</button>
@@ -241,32 +297,72 @@
     </div>
   </div>
 
-  <!-- ── Profile Modal ── -->
+  <!-- ══ TASK DETAIL MODAL ══ -->
+  <div class="modal hidden" id="taskDetailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="modal-backdrop" id="detailBackdrop"></div>
+    <div class="modal-card">
+      <h2 id="detailTitle" class="detail-heading"></h2>
+      <p id="detailDesc" class="detail-desc"></p>
+      <div id="detailMeta" class="detail-meta"></div>
+      <div class="modal-actions detail-actions">
+        <button type="button" class="btn-ghost"             id="detailCloseBtn">[ بستن ]</button>
+        <button type="button" class="btn-ghost hidden"      id="detailRestoreBtn">[ بازیابی ↩ ]</button>
+        <button type="button" class="btn-ghost"             id="detailCompleteBtn">[ تکمیل ✓ ]</button>
+        <button type="button" class="btn-danger"            id="detailDeleteBtn">[ حذف ]</button>
+        <button type="button" class="btn-primary"           id="detailEditBtn">[ ویرایش ]</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PROFILE MODAL ══ -->
   <div class="modal hidden" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
     <div class="modal-backdrop" id="profileBackdrop"></div>
     <div class="modal-card">
       <h2 id="profileTitle">▸ پروفایل من 👤</h2>
-      <p id="profileError" class="error hidden"></p>
-      <form id="profileForm" class="task-form">
 
-        <label for="profileName">▸ نام</label>
+      <p id="profileError" class="error hidden"></p>
+
+      <form id="profileForm" class="task-form">
+        <label for="profileName">▸ نام نمایشی</label>
         <input id="profileName" type="text" maxlength="70" required placeholder="مثلاً سارا">
 
         <label for="profileUsername">▸ نام کاربری</label>
-        <input id="profileUsername" type="text" maxlength="20" required placeholder="username">
-
-        <label for="profilePassword">▸ رمز عبور جدید</label>
-        <input id="profilePassword" type="password" placeholder="خالی بذار اگه تغییر نمی‌خوای">
+        <input id="profileUsername" type="text" maxlength="20" required placeholder="sara_99">
 
         <div class="modal-actions">
-          <button type="button" class="btn-ghost" id="profileCancelBtn">[ لغو ]</button>
-          <button type="submit" class="btn-primary" id="profileSaveBtn">[ ذخیره ]</button>
+          <button type="button" class="btn-ghost"   id="profileCancelBtn">[ لغو ]</button>
+          <button type="submit"  class="btn-primary" id="profileSaveBtn">[ ذخیره اطلاعات ]</button>
         </div>
       </form>
+
+      <!-- Change password section -->
+      <div class="section-divider">
+        <p class="section-divider-label">▸ تغییر رمز عبور 🔑</p>
+      </div>
+
+      <div id="cpError"   class="error hidden"></div>
+      <div id="cpSuccess" class="error hidden" style="color:var(--leaf);border-color:var(--leaf);background:rgba(74,222,128,0.07)"></div>
+
+      <form id="changePwForm" class="task-form">
+        <label for="cpOldPassword">▸ رمز فعلی</label>
+        <input id="cpOldPassword" type="password" autocomplete="current-password" placeholder="••••••••">
+
+        <label for="cpNewPassword1">▸ رمز جدید</label>
+        <input id="cpNewPassword1" type="password" autocomplete="new-password" placeholder="حداقل ۸ کاراکتر">
+
+        <label for="cpNewPassword2">▸ تکرار رمز جدید</label>
+        <input id="cpNewPassword2" type="password" autocomplete="new-password" placeholder="دوباره وارد کن">
+
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary" id="cpSaveBtn">[ تغییر رمز ]</button>
+        </div>
+      </form>
+
     </div>
   </div>
 
-  <div class="toast hidden" id="toast" role="status"></div>
+  <!-- ══ TOAST ══ -->
+  <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
 
 </body>
 </html>
