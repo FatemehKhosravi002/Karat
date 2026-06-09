@@ -6,7 +6,7 @@ A to-do list app built for real life.
 
 Karat started as a backend learning project, but it quickly became something more useful: a to-do list that my friends and I actually wanted to use.
 
-Instead of trying to become the next all-in-one productivity platform, Karat focuses on the basics — writing things down, organizing them, and getting them done.
+Instead of trying to become the next all-in-one productivity platform, Karat focuses on the basics.
 
 Most new features are added because they solve a real problem during everyday use.
 
