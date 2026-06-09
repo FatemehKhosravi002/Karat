@@ -1,10 +1,22 @@
 from django.db import models
 from django.conf import settings
+from django.db.models import UniqueConstraint
 
 from django_jalali.db import models as jmodels
 import jdatetime
 
 
+class TagModel(models.Model):
+    name = models.CharField(max_length=30)
+    color = models.CharField(max_length=7, default="#808080")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE,
+                             related_name="tags",
+                             )
+    class Meta:
+        constraints=[
+            models.UniqueConstraint(fields=['user','name'], name="unique_user_tag"),
+        ]
 class TaskModel(models.Model):
     class PriorityChoices(models.IntegerChoices):
         HIGH = 3 ,"High"
@@ -23,7 +35,6 @@ class TaskModel(models.Model):
     is_completed = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
     duration_type = models.CharField(max_length=5, choices=Duration_TypeChoices, default=Duration_TypeChoices.SHORT)
-    tag = models.CharField(max_length=30, null=True, blank=True)
     completed_at = jmodels.jDateField(null=True, blank=True)
 
     user = models.ForeignKey(
