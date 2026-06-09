@@ -52,10 +52,16 @@ class TasksListView(APIView):
     permission_classes=[IsAuthenticated]
 
     def get(self, request):
-        tasks = TaskModel.objects.filter(user=request.user,
-                                         is_deleted=False).filter(
-                                             Q(is_completed=False)|Q(completed_at=jdate.today())
-                                         )#filtering tasks which are not completed OR are completed today
+        tasks = TaskModel.objects.filter(user=request.user)
+        if request.query_params.get("is_deleted"):
+            is_deleted = request.query_params.get("is_deleted")
+            tasks = tasks.filter(is_deleted=is_deleted)
+        if request.query_params.get("is_completed"):
+            is_completed = request.query_params.get("is_completed")
+            tasks = tasks.filter(is_completed=is_completed)
+        if request.query_params.get("created_at"):
+            created_at = request.query_params.get("created_at")
+            tasks = tasks.filter(created_at=created_at)
         serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data)
 
@@ -80,11 +86,3 @@ class TaskCompletedListView(APIView):
     },
     status=200
 )
-
-class TaskSoftDeletedListView(APIView):
-    permission_classes=[IsAuthenticated]
-
-    def get(self, request):
-        tasks = TaskModel.objects.filter(user=request.user, is_deleted=True)
-        serializer = TaskSerializer(tasks, many=True)
-        return Response(serializer.data)

@@ -13,6 +13,7 @@ class TaskSerializer(serializers.Serializer):
     is_deleted = serializers.BooleanField(required=False)
     duration_type = serializers.ChoiceField(choices=TaskModel.Duration_TypeChoices, required=False, default=TaskModel.Duration_TypeChoices.SHORT)
     tag = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=30, default=None)
+    completed_at = serializers.DateField(required=False, read_only=True, allow_null=True)
 
     def create(self, validated_data):
         return TaskModel.objects.create(**validated_data)
