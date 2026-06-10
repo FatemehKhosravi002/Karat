@@ -11,9 +11,7 @@ class TagSerializer(serializers.Serializer):
     
     def create(self, validated_data):
         user = self.context.get("user")
-        tag = TagModel.objects.create(**validated_data)
-        tag.user = user
-        tag.save()
+        tag = TagModel.objects.create(**validated_data, user=user)
         return tag
     
     def update(self, instance, validated_data):
@@ -34,7 +32,7 @@ class TaskSerializer(serializers.Serializer):
     is_deleted = serializers.BooleanField(required=False)
     duration_type = serializers.ChoiceField(choices=TaskModel.Duration_TypeChoices, required=False, default=TaskModel.Duration_TypeChoices.SHORT)
     completed_at = serializers.DateField(required=False, read_only=True, allow_null=True)
-    tags = serializers.ListField(child=serializers.DictField(), required=False)#pass list of dicts bc of using get_or_create function
+    tags = TagSerializer(many=True)
 
 
     def create(self, validated_data):
@@ -47,7 +45,7 @@ class TaskSerializer(serializers.Serializer):
                                                             name=tag["name"],
                                                             defaults={"color":tag.get("color", "#1E435D")})
             tags_list.append(tag_object)
-        task.tag.add(tags_list)
+        task.tags.set(tags_list)
         task.save()
         return task
     
@@ -69,7 +67,7 @@ class TaskSerializer(serializers.Serializer):
                     name=tag["name"],
                     defaults={"color":tag.get("color", "#1E435D")})
                 tags_list.append(tag_object)
-            instance.tags = tags_list
+            instance.tags.set(tags_list)
 
         instance.save()
         return instance

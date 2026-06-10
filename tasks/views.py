@@ -26,7 +26,7 @@ class TagDetailView(APIView):
     
     def patch(self, request, pk):
         instance = self.get_object(pk)
-        serializer = TagSerializer(request.data, instance=instance,partial=True , context={
+        serializer = TagSerializer(data=request.data, instance=instance, partial=True , context={
             "user":request.user,
         })
         if serializer.is_valid():
@@ -46,7 +46,7 @@ class TagListView(APIView):
         return Response(serializer.data, status=200)
     
     def post(self, request):
-        serializer = TagSerializer(request.data, context={
+        serializer = TagSerializer(data=request.data, context={
             "user":request.user,
         })
         if serializer.is_valid():
@@ -108,9 +108,10 @@ class TasksListView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = TaskSerializer(data=request.data)
+        serializer = TaskSerializer(data=request.data, context={
+            "user":request.user,
+        })
         if serializer.is_valid():
-            serializer.save(user=request.user)
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 

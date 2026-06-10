@@ -17,6 +17,9 @@ class TagModel(models.Model):
         constraints=[
             models.UniqueConstraint(fields=['user','name'], name="unique_user_tag"),
         ]
+    
+    def __str__(self):
+        return self.name
 
 
 class TaskModel(models.Model):
