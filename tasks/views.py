@@ -1,12 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from django.db.models import Q
 
 from .serializers import TaskSerializer, TagSerializer
 from .models import TaskModel, TagModel
-
-from jdatetime import date as jdate
 
 class TagDetailView(APIView):
     def get_object(self, pk):
