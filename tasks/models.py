@@ -17,6 +17,8 @@ class TagModel(models.Model):
         constraints=[
             models.UniqueConstraint(fields=['user','name'], name="unique_user_tag"),
         ]
+
+
 class TaskModel(models.Model):
     class PriorityChoices(models.IntegerChoices):
         HIGH = 3 ,"High"
@@ -36,7 +38,7 @@ class TaskModel(models.Model):
     is_deleted = models.BooleanField(default=False)
     duration_type = models.CharField(max_length=5, choices=Duration_TypeChoices, default=Duration_TypeChoices.SHORT)
     completed_at = jmodels.jDateField(null=True, blank=True)
-    tag = models.ForeignKey(TagModel, on_delete=models.CASCADE, related_name="tasks")
+    tags = models.ManyToManyField(TagModel, related_name="tasks", related_query_name="task", blank=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
