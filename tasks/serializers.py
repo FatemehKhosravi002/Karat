@@ -32,7 +32,7 @@ class TaskSerializer(serializers.Serializer):
     is_deleted = serializers.BooleanField(required=False)
     duration_type = serializers.ChoiceField(choices=TaskModel.Duration_TypeChoices, required=False, default=TaskModel.Duration_TypeChoices.SHORT)
     completed_at = serializers.DateField(required=False, read_only=True, allow_null=True)
-    tags = TagSerializer(many=True)
+    tags = TagSerializer(many=True, required=False)
 
 
     def create(self, validated_data):

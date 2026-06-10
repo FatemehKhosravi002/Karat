@@ -70,7 +70,9 @@ class TaskDetailView(APIView):
     
     def put(self, request, pk):
         obj = self.get_object(pk)
-        serializer = TaskSerializer(data=request.data, instance=obj)
+        serializer = TaskSerializer(data=request.data, instance=obj, context={
+            "user":request.user,
+        })
 
         if serializer.is_valid():
             serializer.save(user=request.user)
@@ -79,7 +81,9 @@ class TaskDetailView(APIView):
     
     def patch(self, request, pk):
         obj = self.get_object(pk)
-        serializer = TaskSerializer(data=request.data, instance=obj, partial=True)
+        serializer = TaskSerializer(data=request.data, instance=obj, partial=True, context={
+            "user":request.user,
+        })
 
         if serializer.is_valid():
             serializer.save(user=request.user)
@@ -104,6 +108,9 @@ class TasksListView(APIView):
         if request.query_params.get("created_at"):
             created_at = request.query_params.get("created_at")
             tasks = tasks.filter(created_at=created_at)
+        if request.query_params.get("search"):
+            search = request.query_params.get("search")
+            tasks = tasks.filter(name__icontains=search)
         serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data)
 
