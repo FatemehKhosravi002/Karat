@@ -17,6 +17,9 @@ class TagModel(models.Model):
         constraints=[
             models.UniqueConstraint(fields=['user','name'], name="unique_user_tag"),
         ]
+
+        verbose_name = "Tag"
+        verbose_name_plural = "Tags"
     
     def __str__(self):
         return self.name
@@ -49,6 +52,8 @@ class TaskModel(models.Model):
     
     class Meta:
         ordering = ["-priority", "-due_date", "-created_at"]
+        verbose_name = "Task"
+        verbose_name_plural = "Tasks"
 
     def save(self, *args, **kwargs):
         if self.is_completed and self.completed_at is None:
