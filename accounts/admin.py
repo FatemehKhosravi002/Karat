@@ -7,5 +7,6 @@ from .models import CustomUser
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
-    list_display = ['username']
+    list_display = ['username', "is_active", "is_staff"]
     search_fields = ['username']
+    list_editable = ["is_active", "is_staff"]
