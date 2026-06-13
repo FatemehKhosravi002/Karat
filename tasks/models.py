@@ -40,7 +40,7 @@ class TaskModel(models.Model):
     is_completed = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
     duration_type = models.CharField(max_length=5, choices=Duration_TypeChoices, default=Duration_TypeChoices.SHORT)
-    completed_at = jmodels.jDateField(null=True, blank=True)
+    completed_at = jmodels.jDateTimeField(null=True, blank=True)
     tags = models.ManyToManyField(TagModel, related_name="tasks", related_query_name="task", blank=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
