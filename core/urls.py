@@ -19,13 +19,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.views.generic import TemplateView
 
-from core.views import home, login
+from .views import home, login, register_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include("accounts.urls")),
     path('login/', login, name='login'),
-    path('register/', TemplateView.as_view(template_name='register.html')),
+    path('register/', register_page, name="register_page"),
     path('profile/', TemplateView.as_view(template_name='profile.html')),
     path('', home, name='home'),
     path('', include("tasks.urls")),
