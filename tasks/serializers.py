@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 
 
 class TagSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(required=True)
     color = serializers.CharField(required=False)
     
@@ -22,6 +23,7 @@ class TagSerializer(serializers.Serializer):
 
 
 class TaskSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(required=True, max_length=200)
     description = serializers.CharField(required=False, allow_blank=True,
                                         allow_null=True, default=None)
