@@ -1,368 +1,1030 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>کارات 🛤️</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>کارات - مدیریت وظایف</title>
   {% load static %}
-  <link rel="stylesheet" href="{% static 'style.css' %}">
-  <script defer src="{% static 'jalali.js' %}"></script>
-  <script defer src="{% static 'api.js' %}"></script>
-  <script defer src="{% static 'app.js' %}"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
 </head>
-<body class="cozy-bg">
+<body>
 
-  <!-- Ambient stars -->
-  <div class="px-star" style="top:6%;right:4%;animation-delay:0s;font-size:1.2rem;color:#fbbf24">✦</div>
-  <div class="px-star" style="top:18%;left:3%;animation-delay:0.9s;color:#38bdf8">✦</div>
-  <div class="px-star" style="top:52%;right:2%;animation-delay:1.6s;font-size:0.9rem;color:#4ade80">✦</div>
-  <div class="px-star" style="top:75%;left:4%;animation-delay:0.4s;color:#fbbf24">✦</div>
-  <div class="px-star" style="top:88%;right:5%;animation-delay:2.1s;font-size:0.8rem;color:#c084fc">✦</div>
-
-  <!-- Corner labels -->
-  <div class="corner-label tl">KARAT v2.0</div>
-  <div class="corner-label bl">KEEP ROLLING ▶</div>
-
-  <div class="shell">
-
-    <!-- ══ HERO ══ -->
-    <header class="hero">
-
-      <!-- Pixel road SVG -->
-      <svg class="pixel-house" width="110" height="110" viewBox="0 0 28 28"
-           xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;">
-        <!-- Night sky -->
-        <rect width="28" height="28" fill="#1c1917"/>
-        <!-- Grid bg dots -->
-        <rect x="3"  y="3"  width="1" height="1" fill="#fbbf24" opacity="0.15"/>
-        <rect x="11" y="6"  width="1" height="1" fill="#fbbf24" opacity="0.15"/>
-        <rect x="20" y="4"  width="1" height="1" fill="#fbbf24" opacity="0.15"/>
-        <rect x="25" y="9"  width="1" height="1" fill="#38bdf8" opacity="0.15"/>
-
-        <!-- Stars -->
-        <rect x="1"  y="1" width="1" height="1" fill="#fbbf24" opacity="0.8"/>
-        <rect x="6"  y="2" width="1" height="1" fill="#fbbf24" opacity="0.5"/>
-        <rect x="13" y="1" width="1" height="1" fill="#fbbf24" opacity="0.9"/>
-        <rect x="19" y="2" width="1" height="1" fill="#38bdf8" opacity="0.7"/>
-        <rect x="24" y="1" width="1" height="1" fill="#fbbf24" opacity="0.6"/>
-        <rect x="26" y="3" width="1" height="1" fill="#c084fc" opacity="0.5"/>
-
-        <!-- Moon -->
-        <rect x="23" y="1" width="3" height="3" fill="#fdf6ec" opacity="0.9"/>
-        <rect x="24" y="1" width="2" height="3" fill="#1c1917"/>
-
-        <!-- Far mountains -->
-        <rect x="0"  y="9"  width="1" height="9"  fill="#2d2620"/>
-        <rect x="1"  y="8"  width="1" height="10" fill="#2d2620"/>
-        <rect x="2"  y="7"  width="2" height="11" fill="#2d2620"/>
-        <rect x="4"  y="8"  width="1" height="10" fill="#2d2620"/>
-        <rect x="5"  y="9"  width="2" height="9"  fill="#2d2620"/>
-        <!-- Snow -->
-        <rect x="3"  y="7"  width="1" height="1"  fill="#e8f0ff" opacity="0.6"/>
-
-        <rect x="14" y="10" width="1" height="8"  fill="#231f1b"/>
-        <rect x="15" y="8"  width="2" height="10" fill="#231f1b"/>
-        <rect x="17" y="9"  width="2" height="9"  fill="#231f1b"/>
-        <rect x="19" y="10" width="4" height="8"  fill="#231f1b"/>
-        <!-- Snow -->
-        <rect x="16" y="8"  width="1" height="1"  fill="#e8f0ff" opacity="0.6"/>
-
-        <!-- Ground -->
-        <rect x="0" y="18" width="28" height="10" fill="#1a3020"/>
-        <!-- Grass texture -->
-        <rect x="0"  y="18" width="1" height="1" fill="#1e3824"/>
-        <rect x="4"  y="19" width="1" height="1" fill="#1e3824"/>
-        <rect x="9"  y="18" width="1" height="1" fill="#243d28"/>
-        <rect x="16" y="19" width="1" height="1" fill="#1e3824"/>
-        <rect x="23" y="18" width="1" height="1" fill="#1e3824"/>
-        <rect x="26" y="20" width="1" height="1" fill="#243d28"/>
-
-        <!-- ── Road system ── -->
-        <!-- Road segment 1: bottom straight up -->
-        <rect x="11" y="22" width="6" height="6" fill="#3d342c"/>
-        <rect x="12" y="22" width="4" height="6" fill="#4a3f35"/>
-        <!-- Dashes -->
-        <rect x="13" y="22" width="2" height="2" fill="#fbbf24"/>
-        <rect x="13" y="25" width="2" height="2" fill="#fbbf24"/>
-
-        <!-- Road segment 2: curves right -->
-        <rect x="14" y="18" width="14" height="5" fill="#3d342c"/>
-        <rect x="15" y="19" width="12" height="3" fill="#4a3f35"/>
-        <!-- Dashes -->
-        <rect x="17" y="19" width="2" height="2" fill="#fbbf24"/>
-        <rect x="22" y="19" width="2" height="2" fill="#fbbf24"/>
-
-        <!-- Road segment 3: up-right -->
-        <rect x="22" y="13" width="6" height="6" fill="#3d342c"/>
-        <rect x="23" y="14" width="4" height="4" fill="#4a3f35"/>
-        <!-- Dashes -->
-        <rect x="24" y="14" width="2" height="2" fill="#fbbf24"/>
-        <rect x="24" y="17" width="2" height="1" fill="#fbbf24"/>
-
-        <!-- Road segment 4: left across top -->
-        <rect x="6"  y="12" width="18" height="5" fill="#3d342c"/>
-        <rect x="7"  y="13" width="16" height="3" fill="#4a3f35"/>
-        <!-- Dashes -->
-        <rect x="9"  y="13" width="2" height="2" fill="#fbbf24"/>
-        <rect x="14" y="13" width="2" height="2" fill="#fbbf24"/>
-        <rect x="19" y="13" width="2" height="2" fill="#fbbf24"/>
-
-        <!-- Road segment 5: down to left -->
-        <rect x="2" y="10" width="7" height="4" fill="#3d342c"/>
-        <rect x="3" y="10" width="5" height="3" fill="#4a3f35"/>
-        <!-- Dash -->
-        <rect x="4" y="10" width="2" height="2" fill="#fbbf24"/>
-
-        <!-- Road edge markers -->
-        <rect x="11" y="22" width="1" height="6" fill="#2d2620"/>
-        <rect x="16" y="22" width="1" height="6" fill="#2d2620"/>
-
-        <!-- ── Tree (left side) ── -->
-        <rect x="7"  y="20" width="2" height="3" fill="#7a4a1a"/>
-        <rect x="5"  y="17" width="6" height="4" fill="#2d7a3a"/>
-        <rect x="4"  y="18" width="8" height="3" fill="#2d7a3a"/>
-        <rect x="5"  y="16" width="6" height="2" fill="#39a049"/>
-        <rect x="6"  y="14" width="4" height="3" fill="#39a049"/>
-        <rect x="7"  y="13" width="2" height="2" fill="#86efac"/>
-
-        <!-- ── House (right side) ── -->
-        <rect x="23" y="21" width="5" height="7" fill="#c084fc" opacity="0.85"/>
-        <rect x="23" y="18" width="5" height="4" fill="#7e22ce"/>
-        <rect x="24" y="17" width="3" height="2" fill="#7e22ce"/>
-        <rect x="25" y="16" width="1" height="2" fill="#7e22ce"/>
-        <!-- Door -->
-        <rect x="24" y="23" width="2" height="4" fill="#1c1917"/>
-        <!-- Window -->
-        <rect x="26" y="22" width="2" height="2" fill="#fbbf24" opacity="0.85"/>
-        <!-- Chimney smoke -->
-        <rect x="24" y="14" width="1" height="3" fill="#3d342c"/>
-        <rect x="24" y="13" width="2" height="1" fill="#7a6a58" opacity="0.5"/>
-
-        <!-- ── Pixel car on road ── -->
-        <!-- Body -->
-        <rect x="16" y="18" width="5" height="3" fill="#38bdf8"/>
-        <!-- Windshield / roof -->
-        <rect x="17" y="18" width="3" height="1" fill="#1c1917"/>
-        <!-- Lights front -->
-        <rect x="16" y="19" width="1" height="1" fill="#fbbf24"/>
-        <!-- Lights back -->
-        <rect x="20" y="19" width="1" height="1" fill="#fb7185"/>
-        <!-- Neon underglow -->
-        <rect x="16" y="21" width="5" height="1" fill="#4ade80" opacity="0.6"/>
-        <!-- Wheels -->
-        <rect x="16" y="20" width="2" height="1" fill="#2d2620"/>
-        <rect x="19" y="20" width="2" height="1" fill="#2d2620"/>
-
-        <!-- Horizon glow -->
-        <rect x="0" y="17" width="28" height="1" fill="#38bdf8" opacity="0.12"/>
-      </svg>
-
-      <h1>کارات</h1>
-      <p class="greeting" id="userGreeting">به خونه‌ی کارهات خوش اومدی 🛤️</p>
-
-      <div class="hero-btns">
-        <button type="button" class="profile-btn" id="profileBtn" title="پروفایل">[ پروفایل 👤 ]</button>
-        <button type="button" class="logout-btn"  id="logoutBtn"  title="خروج">[ خروج ]</button>
-      </div>
-    </header>
-
-    <!-- ══ FUN BAR ══ -->
-    <div class="fun-bar" id="funBar">▶ جاده‌ی زندگی رو تو خودت می‌سازی ◀</div>
-
-    <!-- ══ STATS BAR ══ -->
-    <div class="stats-bar">
-      <div class="stat-chip s-active">
-        <span class="stat-num" id="statActive">۰</span>
-        <span class="stat-label">کار فعال</span>
-      </div>
-      <div class="stat-chip s-done">
-        <span class="stat-num" id="statDone">۰</span>
-        <span class="stat-label">تکمیل‌شده</span>
-      </div>
-      <div class="stat-chip s-urgent">
-        <span class="stat-num" id="statUrgent">۰</span>
-        <span class="stat-label">فوری 🔥</span>
-      </div>
-      <div class="stat-chip s-deleted">
-        <span class="stat-num" id="statDeleted">۰</span>
-        <span class="stat-label">حذف‌شده</span>
-      </div>
-    </div>
-
-    <!-- ══ PROGRESS BAR ══ -->
-    <div class="progress-wrap" title="پیشرفت کلی">
-      <div class="progress-fill" id="progressFill" style="width:0%"></div>
-    </div>
-    <div class="progress-label" id="progressLabel">پیشرفت: ۰٪</div>
-
-    <!-- ══ MAIN CARD ══ -->
-    <section class="card main-card" style="margin-top:16px;">
-
-      <div class="card-top">
-        <h2>▸ کارهای جاده</h2>
-        <span class="count-badge" id="taskCount">۰</span>
-      </div>
-
-      <!-- Tabs -->
-      <div class="task-tabs" role="tablist">
-        <button type="button" class="task-tab active" data-tab="active"    role="tab" aria-selected="true">⚡ فعال</button>
-        <button type="button" class="task-tab"         data-tab="completed" role="tab" aria-selected="false">✅ تکمیل</button>
-        <button type="button" class="task-tab"         data-tab="deleted"   role="tab" aria-selected="false">🗑 حذف</button>
-      </div>
-
-      <!-- Search -->
-      <div class="search-wrap">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" class="search-input"
-               placeholder="جستجو در کارها… (Ctrl+K)" autocomplete="off">
-      </div>
-
-      <!-- Tag filter -->
-      <div class="tag-filter hidden" id="tagFilter"></div>
-
-      <!-- Filter/sort bar -->
-      <div class="filter-bar">
-        <span class="filter-label">مرتب‌سازی:</span>
-        <select id="sortSelect" class="filter-select">
-          <option value="priority">اولویت</option>
-          <option value="due">موعد تحویل</option>
-          <option value="created">تاریخ ساخت</option>
-        </select>
-      </div>
-
-      <!-- Task list -->
-      <main id="taskList" class="task-list" aria-live="polite"></main>
-
-    </section>
+<!-- ========= SIDEBAR ========= -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="logo-icon">✦</span>
+    <span class="logo-text">کارات</span>
   </div>
 
-  <!-- ══ FAB ══ -->
-  <button type="button" class="fab" id="addBtn" aria-label="کار جدید">
-    <span class="fab-plus">+</span>
-    <span>کار جدید</span>
-  </button>
+  <nav class="sidebar-nav">
+    <button class="nav-item active" data-view="all">
+      <span class="nav-icon">📋</span> همه وظایف
+    </button>
+    <button class="nav-item" onclick="window.location.href='/profile/'">
+      <span class="nav-icon">👤</span> پروفایل
+    </button>
+    <button class="nav-item" data-view="active">
+      <span class="nav-icon">⚡</span> وظایف فعال
+    </button>
+    <button class="nav-item" data-view="completed">
+      <span class="nav-icon">✅</span> تکمیل‌شده
+    </button>
+    <button class="nav-item" data-view="deleted">
+      <span class="nav-icon">🗑️</span> حذف‌شده
+    </button>
+  </nav>
 
-  <!-- ══ TASK CREATE/EDIT MODAL ══ -->
-  <div class="modal hidden" id="taskModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-backdrop" id="modalBackdrop"></div>
-    <div class="modal-card">
-      <h2 id="modalTitle">▸ کار جدید ✨</h2>
-      <form id="taskForm" class="task-form">
+  <div class="sidebar-section">
+    <div class="section-header">
+      <span>برچسب‌ها</span>
+      <button class="btn-icon" id="add-tag-btn" title="افزودن برچسب">+</button>
+    </div>
+    <div id="tag-list-sidebar"></div>
+  </div>
 
-        <label for="taskTitle">▸ عنوان *</label>
-        <input id="taskTitle" type="text" maxlength="200" required placeholder="مثلاً خرید میوه از بازار">
-        <div class="char-count" id="titleCounter">0 / 200</div>
+  <div class="sidebar-footer">
+    <div id="user-info-sidebar"></div>
+    <button class="btn-logout" id="logout-btn">خروج</button>
+  </div>
+</aside>
 
-        <label for="taskDesc">▸ توضیحات</label>
-        <textarea id="taskDesc" rows="3" placeholder="جزئیات بیشتر… (اختیاری)"></textarea>
+<!-- ========= MAIN CONTENT ========= -->
+<main class="main-content">
 
-        <label for="taskPriority">▸ اولویت</label>
-        <select id="taskPriority">
-          <option value="1">🌿 کم‌اهمیت — وقت داره</option>
-          <option value="2" selected>☕ معمولی — امروز</option>
-          <option value="3">🔥 فوری — الان!</option>
-        </select>
+  <!-- Top bar -->
+  <header class="topbar">
+    <button class="btn-icon sidebar-toggle" id="sidebar-toggle">☰</button>
+    <div class="topbar-title" id="view-title">همه وظایف</div>
+    <button class="btn btn-primary" id="new-task-btn">+ وظیفه جدید</button>
+  </header>
 
-        <label for="taskDuration">▸ نوع مدت</label>
-        <select id="taskDuration">
-          <option value="short" selected>⚡ کوتاه‌مدت</option>
-          <option value="long">🗺️ بلندمدت</option>
-        </select>
+  <!-- Stats bar -->
+  <div class="stats-bar" id="stats-bar">
+    <div class="stat-card">
+      <span class="stat-num" id="stat-total">۰</span>
+      <span class="stat-label">کل وظایف</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="stat-active">۰</span>
+      <span class="stat-label">فعال</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="stat-done">۰</span>
+      <span class="stat-label">تکمیل‌شده</span>
+    </div>
+  </div>
 
-        <label for="taskTag">▸ برچسب</label>
-        <input id="taskTag" type="text" maxlength="30" placeholder="مثلاً: کار، خرید، خانه (اختیاری)">
+  <!-- Filters & Search -->
+  <div class="filters-bar">
+    <input type="text" id="search-input" class="search-input" placeholder="جستجو در وظایف..." />
+    <select id="priority-filter" class="filter-select">
+      <option value="">همه اولویت‌ها</option>
+      <option value="3">بالا</option>
+      <option value="2">متوسط</option>
+      <option value="1">پایین</option>
+    </select>
+    <select id="duration-filter" class="filter-select">
+      <option value="">همه مدت‌ها</option>
+      <option value="short">کوتاه‌مدت</option>
+      <option value="long">بلندمدت</option>
+    </select>
+  </div>
 
-        <label class="check-row" for="hasDue">
-          <input type="checkbox" id="hasDue">
-          ▸ موعد تحویل دارم &nbsp;<span class="hint">(اختیاری)</span>
+  <!-- Task list -->
+  <div id="tasks-container" class="tasks-container">
+    <div class="loading-spinner" id="tasks-loading">در حال بارگذاری...</div>
+  </div>
+</main>
+
+<!-- ========= MODAL: TASK FORM ========= -->
+<div class="modal-overlay hidden" id="task-modal-overlay">
+  <div class="modal" id="task-modal">
+    <div class="modal-header">
+      <h2 id="task-modal-title">وظیفه جدید</h2>
+      <button class="modal-close" id="task-modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="task-form-error" class="alert alert-error hidden"></div>
+
+      <div class="form-group">
+        <label>عنوان <span class="required">*</span></label>
+        <input type="text" id="task-title" placeholder="عنوان وظیفه را وارد کنید" maxlength="200" required />
+      </div>
+
+      <div class="form-group">
+        <label>توضیحات</label>
+        <textarea id="task-desc" rows="3" placeholder="توضیحات اضافی (اختیاری)"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>اولویت</label>
+          <select id="task-priority">
+            <option value="3">🔴 بالا</option>
+            <option value="2" selected>🟡 متوسط</option>
+            <option value="1">🟢 پایین</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>مدت</label>
+          <select id="task-duration">
+            <option value="short" selected>کوتاه‌مدت</option>
+            <option value="long">بلندمدت</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>تاریخ سررسید (شمسی) — مثال: ۱۴۰۳/۱۲/۱۵</label>
+        <input type="text" id="task-due-date" placeholder="YYYY/MM/DD یا خالی بگذارید" dir="ltr" />
+        <small class="hint">فرمت: ۱۴۰۳/۱۲/۱۵ یا 1403/12/15</small>
+      </div>
+
+      <div class="form-group">
+        <label>وضعیت تکمیل</label>
+        <label class="toggle-label">
+          <input type="checkbox" id="task-completed" />
+          <span class="toggle-slider"></span>
+          <span class="toggle-text">تکمیل شده</span>
         </label>
+      </div>
 
-        <div id="dueFields" class="due-fields hidden">
-          <div class="jalali-grid">
-            <div><label for="dueYear">سال</label><select id="dueYear"></select></div>
-            <div><label for="dueMonth">ماه</label><select id="dueMonth"></select></div>
-            <div><label for="dueDay">روز</label><select id="dueDay"></select></div>
-            <div><label for="dueHour">ساعت</label><select id="dueHour"></select></div>
-            <div><label for="dueMinute">دقیقه</label><select id="dueMinute"></select></div>
+      <div class="form-group">
+        <label>برچسب‌ها</label>
+        <div class="tag-picker" id="tag-picker">
+          <!-- populated by JS -->
+        </div>
+        <div class="tag-quick-add">
+          <input type="text" id="new-tag-inline-name" placeholder="نام برچسب جدید" maxlength="30" />
+          <input type="color" id="new-tag-inline-color" value="#1E435D" title="رنگ برچسب" />
+          <button class="btn btn-sm" id="new-tag-inline-btn">+ افزودن</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="task-cancel-btn">انصراف</button>
+      <button class="btn btn-primary" id="task-save-btn">ذخیره</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========= MODAL: TAG MANAGEMENT ========= -->
+<div class="modal-overlay hidden" id="tag-modal-overlay">
+  <div class="modal" id="tag-modal">
+    <div class="modal-header">
+      <h2>مدیریت برچسب‌ها</h2>
+      <button class="modal-close" id="tag-modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="tag-form-error" class="alert alert-error hidden"></div>
+
+      <!-- Create new tag -->
+      <div class="tag-create-section">
+        <h3>افزودن برچسب جدید</h3>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <input type="text" id="new-tag-name" placeholder="نام برچسب" maxlength="30" />
           </div>
+          <div class="form-group">
+            <input type="color" id="new-tag-color" value="#1E435D" title="رنگ" />
+          </div>
+          <button class="btn btn-primary" id="create-tag-btn">افزودن</button>
         </div>
-
-        <div class="modal-actions">
-          <button type="button" class="btn-ghost" id="cancelBtn">[ لغو ]</button>
-          <button type="submit" class="btn-primary" id="saveBtn">[ ذخیره ]</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ══ TASK DETAIL MODAL ══ -->
-  <div class="modal hidden" id="taskDetailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
-    <div class="modal-backdrop" id="detailBackdrop"></div>
-    <div class="modal-card">
-      <h2 id="detailTitle" class="detail-heading"></h2>
-      <p id="detailDesc" class="detail-desc"></p>
-      <div id="detailMeta" class="detail-meta"></div>
-      <div class="modal-actions detail-actions">
-        <button type="button" class="btn-ghost"             id="detailCloseBtn">[ بستن ]</button>
-        <button type="button" class="btn-ghost hidden"      id="detailRestoreBtn">[ بازیابی ↩ ]</button>
-        <button type="button" class="btn-ghost"             id="detailCompleteBtn">[ تکمیل ✓ ]</button>
-        <button type="button" class="btn-danger"            id="detailDeleteBtn">[ حذف ]</button>
-        <button type="button" class="btn-primary"           id="detailEditBtn">[ ویرایش ]</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ PROFILE MODAL ══ -->
-  <div class="modal hidden" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
-    <div class="modal-backdrop" id="profileBackdrop"></div>
-    <div class="modal-card">
-      <h2 id="profileTitle">▸ پروفایل من 👤</h2>
-
-      <p id="profileError" class="error hidden"></p>
-
-      <form id="profileForm" class="task-form">
-        <label for="profileName">▸ نام نمایشی</label>
-        <input id="profileName" type="text" maxlength="70" required placeholder="مثلاً سارا">
-
-        <label for="profileUsername">▸ نام کاربری</label>
-        <input id="profileUsername" type="text" maxlength="20" required placeholder="sara_99">
-
-        <div class="modal-actions">
-          <button type="button" class="btn-ghost"   id="profileCancelBtn">[ لغو ]</button>
-          <button type="submit"  class="btn-primary" id="profileSaveBtn">[ ذخیره اطلاعات ]</button>
-        </div>
-      </form>
-
-      <!-- Change password section -->
-      <div class="section-divider">
-        <p class="section-divider-label">▸ تغییر رمز عبور 🔑</p>
       </div>
 
-      <div id="cpError"   class="error hidden"></div>
-      <div id="cpSuccess" class="error hidden" style="color:var(--leaf);border-color:var(--leaf);background:rgba(74,222,128,0.07)"></div>
+      <hr />
 
-      <form id="changePwForm" class="task-form">
-        <label for="cpOldPassword">▸ رمز فعلی</label>
-        <input id="cpOldPassword" type="password" autocomplete="current-password" placeholder="••••••••">
-
-        <label for="cpNewPassword1">▸ رمز جدید</label>
-        <input id="cpNewPassword1" type="password" autocomplete="new-password" placeholder="حداقل ۸ کاراکتر">
-
-        <label for="cpNewPassword2">▸ تکرار رمز جدید</label>
-        <input id="cpNewPassword2" type="password" autocomplete="new-password" placeholder="دوباره وارد کن">
-
-        <div class="modal-actions">
-          <button type="submit" class="btn-primary" id="cpSaveBtn">[ تغییر رمز ]</button>
-        </div>
-      </form>
-
+      <h3>برچسب‌های موجود</h3>
+      <div id="tag-management-list" class="tag-management-list">
+        <!-- populated by JS -->
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="tag-modal-done-btn">بستن</button>
     </div>
   </div>
+</div>
 
-  <!-- ══ TOAST ══ -->
-  <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+<!-- ========= MODAL: CONFIRM DELETE ========= -->
+<div class="modal-overlay hidden" id="confirm-modal-overlay">
+  <div class="modal modal-sm" id="confirm-modal">
+    <div class="modal-header">
+      <h2 id="confirm-title">تأیید</h2>
+      <button class="modal-close" id="confirm-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <p id="confirm-message">آیا مطمئن هستید؟</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="confirm-cancel-btn">انصراف</button>
+      <button class="btn btn-danger" id="confirm-ok-btn">تأیید</button>
+    </div>
+  </div>
+</div>
 
+<script>
+// ============================================================
+//  UTILITIES
+// ============================================================
+
+// Convert Gregorian ISO string → Jalali display string
+function toJalali(isoStr) {
+  if (!isoStr) return '—';
+  try {
+    const date = new Date(isoStr);
+    return date.toLocaleDateString('fa-IR', {
+      year: 'numeric', month: 'long', day: 'numeric',
+      calendar: 'persian'
+    });
+  } catch { return isoStr; }
+}
+
+// Convert a Jalali string (YYYY/MM/DD or ۱۴۰۳/۱۲/۱۵) to ISO datetime string
+// We convert Persian-Extended digits to ASCII first, then call a simple Jalali→Gregorian algo
+function jalaliToISO(jalaliStr) {
+  if (!jalaliStr || jalaliStr.trim() === '') return null;
+  // Normalize Persian/Arabic digits
+  const s = jalaliStr.replace(/[۰-۹]/g, d => d.charCodeAt(0) - 1776)
+                     .replace(/[٠-٩]/g, d => d.charCodeAt(0) - 1632)
+                     .trim();
+  const parts = s.split(/[\/\-\.]/);
+  if (parts.length !== 3) return null;
+  const [jy, jm, jd] = parts.map(Number);
+  if (!jy || !jm || !jd) return null;
+  const [gy, gm, gd] = jalaliToGregorian(jy, jm, jd);
+  if (!gy) return null;
+  const pad = n => String(n).padStart(2, '0');
+  return `${gy}-${pad(gm)}-${pad(gd)}T00:00:00`;
+}
+
+// Jalali → Gregorian algorithm (Borkowski)
+function jalaliToGregorian(jy, jm, jd) {
+  const jy2 = jy - 979;
+  const jm2 = jm - 1;
+  let jd2 = jd - 1;
+  let j_day_no = 365 * jy2 + Math.floor(jy2 / 33) * 8 + Math.floor((jy2 % 33 + 3) / 4);
+  for (let i = 0; i < jm2; ++i) j_day_no += [31,31,31,31,31,31,30,30,30,30,30,29][i];
+  j_day_no += jd2;
+  let g_day_no = j_day_no + 79;
+  let gy = 1600 + 400 * Math.floor(g_day_no / 146097);
+  g_day_no = g_day_no % 146097;
+  let leap = true;
+  if (g_day_no >= 36525) {
+    g_day_no--;
+    gy += 100 * Math.floor(g_day_no / 36524);
+    g_day_no = g_day_no % 36524;
+    if (g_day_no >= 365) g_day_no++;
+    else leap = false;
+  }
+  gy += 4 * Math.floor(g_day_no / 1461);
+  g_day_no %= 1461;
+  if (g_day_no >= 366) {
+    leap = false;
+    g_day_no--;
+    gy += Math.floor(g_day_no / 365);
+    g_day_no = g_day_no % 365;
+  }
+  const gDays = [31, leap?29:28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  let gm = 0;
+  for (let i = 0; i < 12; ++i) {
+    if (g_day_no < gDays[i]) { gm = i + 1; break; }
+    g_day_no -= gDays[i];
+  }
+  return [gy, gm, g_day_no + 1];
+}
+
+// Gregorian ISO → Jalali YYYY/MM/DD (for display in inputs)
+function isoToJalaliStr(isoStr) {
+  if (!isoStr) return '';
+  try {
+    const date = new Date(isoStr);
+    const y = date.toLocaleDateString('fa-IR', { year: 'numeric', calendar: 'persian' });
+    const m = date.toLocaleDateString('fa-IR', { month: '2-digit', calendar: 'persian' });
+    const d = date.toLocaleDateString('fa-IR', { day: '2-digit', calendar: 'persian' });
+    // Return ASCII digits version for input
+    return `${y}/${m}/${d}`.replace(/[۰-۹]/g, c => c.charCodeAt(0) - 1776);
+  } catch { return ''; }
+}
+
+// Priority display
+function priorityLabel(p) {
+  return { 3: '🔴 بالا', 2: '🟡 متوسط', 1: '🟢 پایین' }[p] || '—';
+}
+function priorityClass(p) {
+  return { 3: 'priority-high', 2: 'priority-medium', 1: 'priority-low' }[p] || '';
+}
+
+// Duration display
+function durationLabel(d) {
+  return { short: 'کوتاه‌مدت', long: 'بلندمدت' }[d] || d;
+}
+
+// Token helpers
+function getAccess() { return localStorage.getItem('access'); }
+function getRefresh() { return localStorage.getItem('refresh'); }
+
+async function refreshToken() {
+  const refresh = getRefresh();
+  if (!refresh) return false;
+  try {
+    const res = await fetch('/account/token/refresh/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refresh })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      localStorage.setItem('access', data.access);
+      return true;
+    }
+  } catch {}
+  return false;
+}
+
+// Authenticated fetch — auto-refreshes on 401
+async function authFetch(url, options = {}) {
+  let token = getAccess();
+  if (!token) { window.location.href = '/login/'; return null; }
+
+  options.headers = { ...(options.headers || {}), 'Authorization': `Bearer ${token}` };
+  if (!(options.body instanceof FormData)) {
+    options.headers['Content-Type'] = 'application/json';
+  }
+
+  let res = await fetch(url, options);
+  if (res.status === 401) {
+    const ok = await refreshToken();
+    if (ok) {
+      options.headers['Authorization'] = `Bearer ${getAccess()}`;
+      res = await fetch(url, options);
+    } else {
+      localStorage.clear();
+      window.location.href = '/login/';
+      return null;
+    }
+  }
+  return res;
+}
+
+// ============================================================
+//  STATE
+// ============================================================
+let allTasks = [];
+let allTags = [];
+let currentView = 'all';
+let editingTaskId = null;
+let selectedTagIds = new Set();
+
+// ============================================================
+//  INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!getAccess()) { window.location.href = '/login/'; return; }
+
+  await Promise.all([loadUserInfo(), loadTags()]);
+  await loadTasks();
+  setupEventListeners();
+});
+
+// ============================================================
+//  AUTH CHECK
+// ============================================================
+async function loadUserInfo() {
+  const res = await authFetch('/account/me/');
+  if (!res) return;
+  if (res.ok) {
+    const user = await res.json();
+    document.getElementById('user-info-sidebar').innerHTML =
+      `<div class="user-chip"><span>👤</span> ${user.name || user.username}</div>`;
+  }
+}
+
+// ============================================================
+//  TASKS
+// ============================================================
+async function loadTasks() {
+  const container = document.getElementById('tasks-container');
+  container.innerHTML = '<div class="loading-spinner">در حال بارگذاری...</div>';
+
+  let url = '/tasks/';
+  if (currentView === 'completed') url += '?is_completed=true';
+  else if (currentView === 'deleted')  url += '?is_deleted=true';
+  else if (currentView === 'active')   url += '?is_completed=false&is_deleted=false';
+  // for "all" we fetch everything and filter client-side to non-deleted
+
+  const res = await authFetch(url);
+  if (!res) return;
+  if (res.ok) {
+    allTasks = await res.json();
+    renderTasks();
+  } else {
+    container.innerHTML = '<div class="empty-state">خطا در بارگذاری وظایف</div>';
+  }
+}
+
+function getFilteredTasks() {
+  let tasks = [...allTasks];
+
+  // View filter
+  if (currentView === 'all') {
+    tasks = tasks.filter(t => !t.is_deleted);
+  }
+  // completed / deleted / active filters are applied server-side via query params
+
+  // Search
+  const search = document.getElementById('search-input').value.trim().toLowerCase();
+  if (search) tasks = tasks.filter(t =>
+    (t.title || '').toLowerCase().includes(search) ||
+    (t.description || '').toLowerCase().includes(search)
+  );
+
+  // Priority filter
+  const prio = document.getElementById('priority-filter').value;
+  if (prio) tasks = tasks.filter(t => String(t.priority) === prio);
+
+  // Duration filter
+  const dur = document.getElementById('duration-filter').value;
+  if (dur) tasks = tasks.filter(t => t.duration_type === dur);
+
+  return tasks;
+}
+
+function renderTasks() {
+  const container = document.getElementById('tasks-container');
+  const tasks = getFilteredTasks();
+
+  // Update stats
+  const allNonDeleted = allTasks.filter(t => !t.is_deleted);
+  document.getElementById('stat-total').textContent = toPersianNum(allNonDeleted.length);
+  document.getElementById('stat-active').textContent = toPersianNum(allNonDeleted.filter(t => !t.is_completed).length);
+  document.getElementById('stat-done').textContent = toPersianNum(allNonDeleted.filter(t => t.is_completed).length);
+
+  if (tasks.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <span class="empty-icon">📭</span>
+        <p>هیچ وظیفه‌ای یافت نشد</p>
+        ${currentView === 'all' ? '<button class="btn btn-primary" onclick="openTaskModal()">+ افزودن وظیفه</button>' : ''}
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = tasks.map(task => renderTaskCard(task)).join('');
+
+  // Attach listeners
+  container.querySelectorAll('.task-complete-toggle').forEach(cb => {
+    cb.addEventListener('change', async (e) => {
+      const id = e.target.dataset.id;
+      // IMPORTANT: send JSON boolean true/false — NOT Python True/False
+      await updateTask(id, { is_completed: e.target.checked });
+    });
+  });
+  container.querySelectorAll('.task-edit-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      openTaskModal(e.currentTarget.dataset.id);
+    });
+  });
+  container.querySelectorAll('.task-delete-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      confirmAction(
+        'حذف وظیفه',
+        'آیا می‌خواهید این وظیفه را حذف (آرشیو) کنید؟',
+        async () => {
+          await deleteTask(e.currentTarget.dataset.id);
+        }
+      );
+    });
+  });
+  container.querySelectorAll('.task-restore-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      await updateTask(e.currentTarget.dataset.id, { is_deleted: false });
+    });
+  });
+}
+
+function renderTaskCard(task) {
+  const tags = (task.tags || []).map(tag =>
+    `<span class="tag-chip" style="background:${tag.color || '#1E435D'}">${tag.name}</span>`
+  ).join('');
+
+  const dueDateDisplay = task.due_date ? toJalali(task.due_date) : '';
+  const completedClass = task.is_completed ? 'task-card--completed' : '';
+  const deletedClass = task.is_deleted ? 'task-card--deleted' : '';
+
+  return `
+    <div class="task-card ${completedClass} ${deletedClass}" data-id="${task.id}">
+      <div class="task-card-top">
+        <label class="checkbox-wrapper" title="${task.is_completed ? 'علامت عدم تکمیل' : 'علامت تکمیل'}">
+          <input type="checkbox" class="task-complete-toggle" data-id="${task.id}" ${task.is_completed ? 'checked' : ''} ${task.is_deleted ? 'disabled' : ''} />
+          <span class="checkmark"></span>
+        </label>
+        <div class="task-card-title">${escapeHtml(task.title)}</div>
+        <div class="task-card-actions">
+          ${!task.is_deleted ? `
+            <button class="btn-icon task-edit-btn" data-id="${task.id}" title="ویرایش">✏️</button>
+            <button class="btn-icon task-delete-btn" data-id="${task.id}" title="حذف">🗑️</button>
+          ` : `
+            <button class="btn btn-sm task-restore-btn" data-id="${task.id}">بازگردانی</button>
+          `}
+        </div>
+      </div>
+      ${task.description ? `<p class="task-desc">${escapeHtml(task.description)}</p>` : ''}
+      <div class="task-card-meta">
+        <span class="meta-badge ${priorityClass(task.priority)}">${priorityLabel(task.priority)}</span>
+        <span class="meta-badge meta-duration">${durationLabel(task.duration_type)}</span>
+        ${dueDateDisplay ? `<span class="meta-badge meta-date">📅 ${dueDateDisplay.split('T')[0]}</span>` : ''}
+        ${task.is_completed && task.completed_at ? `<span class="meta-badge meta-completed-at">✅ ${task.completed_at}</span>` : ''}
+      </div>
+      ${tags ? `<div class="task-tags">${tags}</div>` : ''}
+    </div>`;
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function toPersianNum(n) {
+  return String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+}
+
+// ============================================================
+//  CREATE / UPDATE TASK
+// ============================================================
+function openTaskModal(taskId = null) {
+  editingTaskId = taskId;
+  selectedTagIds = new Set();
+
+  const modal = document.getElementById('task-modal-overlay');
+  document.getElementById('task-modal-title').textContent = taskId ? 'ویرایش وظیفه' : 'وظیفه جدید';
+  document.getElementById('task-form-error').classList.add('hidden');
+
+  if (taskId) {
+    const task = allTasks.find(t => String(t.id) === String(taskId));
+    if (task) {
+      document.getElementById('task-title').value = task.title || '';
+      document.getElementById('task-desc').value = task.description || '';
+      document.getElementById('task-priority').value = task.priority || 2;
+      document.getElementById('task-duration').value = task.duration_type || 'short';
+      document.getElementById('task-due-date').value = task.due_date ? isoToJalaliStr(task.due_date) : '';
+      document.getElementById('task-completed').checked = !!task.is_completed;
+      selectedTagIds = new Set((task.tags || []).map(t => t.id));
+    }
+  } else {
+    document.getElementById('task-title').value = '';
+    document.getElementById('task-desc').value = '';
+    document.getElementById('task-priority').value = '2';
+    document.getElementById('task-duration').value = 'short';
+    document.getElementById('task-due-date').value = '';
+    document.getElementById('task-completed').checked = false;
+    selectedTagIds = new Set();
+  }
+
+  renderTagPicker();
+  modal.classList.remove('hidden');
+  document.getElementById('task-title').focus();
+}
+
+function closeTaskModal() {
+  document.getElementById('task-modal-overlay').classList.add('hidden');
+  editingTaskId = null;
+}
+
+async function saveTask() {
+  const title = document.getElementById('task-title').value.trim();
+  const errEl = document.getElementById('task-form-error');
+  errEl.classList.add('hidden');
+
+  if (!title) {
+    errEl.textContent = 'عنوان وظیفه الزامی است.';
+    errEl.classList.remove('hidden');
+    return;
+  }
+
+  const dueDateRaw = document.getElementById('task-due-date').value.trim();
+  const due_date = dueDateRaw ? jalaliToISO(dueDateRaw) : null;
+  if (dueDateRaw && !due_date) {
+    errEl.textContent = 'فرمت تاریخ نادرست است. لطفاً به صورت YYYY/MM/DD وارد کنید.';
+    errEl.classList.remove('hidden');
+    return;
+  }
+
+  // Build tags list from selected tag IDs
+  const tags = allTags.filter(t => selectedTagIds.has(t.id)).map(t => ({ name: t.name, color: t.color }));
+
+  // CRITICAL: boolean values must be JSON true/false not Python True/False
+  const payload = {
+    title,
+    description: document.getElementById('task-desc').value.trim() || null,
+    priority: parseInt(document.getElementById('task-priority').value),
+    duration_type: document.getElementById('task-duration').value,
+    due_date: due_date,
+    is_completed: document.getElementById('task-completed').checked,  // JS boolean → JSON true/false
+    is_deleted: false,
+    tags,
+  };
+
+  const saveBtn = document.getElementById('task-save-btn');
+  saveBtn.disabled = true;
+  saveBtn.textContent = 'در حال ذخیره...';
+
+  try {
+    let res;
+    if (editingTaskId) {
+      res = await authFetch(`/tasks/${editingTaskId}/`, {
+        method: 'PUT',
+        body: JSON.stringify(payload),
+      });
+    } else {
+      res = await authFetch('/tasks/', {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      });
+    }
+
+    if (!res) return;
+
+    if (res.ok) {
+      const savedTask = await res.json();
+      if (editingTaskId) {
+        const idx = allTasks.findIndex(t => String(t.id) === String(editingTaskId));
+        if (idx !== -1) allTasks[idx] = savedTask;
+      } else {
+        // Add the newly created task to the top of the list
+        allTasks.unshift(savedTask);
+      }
+      closeTaskModal();
+      renderTasks();
+    } else {
+      const data = await res.json();
+      const errs = Object.entries(data).map(([k,v]) => `${k}: ${Array.isArray(v) ? v.join(', ') : v}`).join(' | ');
+      errEl.textContent = errs || 'خطایی رخ داد.';
+      errEl.classList.remove('hidden');
+    }
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.textContent = 'ذخیره';
+  }
+}
+
+async function updateTask(taskId, fields) {
+  // Ensure booleans are actual JS booleans → JSON true/false
+  const normalized = {};
+  for (const [k, v] of Object.entries(fields)) {
+    if (typeof v === 'string' && (v === 'True' || v === 'False')) {
+      normalized[k] = v === 'True';
+    } else {
+      normalized[k] = v;
+    }
+  }
+
+  const res = await authFetch(`/tasks/${taskId}/`, {
+    method: 'PATCH',
+    body: JSON.stringify(normalized),
+  });
+  if (!res) return;
+  if (res.ok) {
+    const updated = await res.json();
+    const idx = allTasks.findIndex(t => String(t.id) === String(taskId));
+    if (idx !== -1) allTasks[idx] = updated;
+    renderTasks();
+  } else {
+    const data = await res.json().catch(() => ({}));
+    alert('خطا در به‌روزرسانی: ' + (JSON.stringify(data) || 'نامشخص'));
+  }
+}
+
+async function deleteTask(taskId) {
+  const res = await authFetch(`/tasks/${taskId}/`, { method: 'DELETE' });
+  if (!res) return;
+  if (res.status === 204 || res.ok) {
+    const idx = allTasks.findIndex(t => String(t.id) === String(taskId));
+    if (idx !== -1) allTasks[idx].is_deleted = true;
+    renderTasks();
+  }
+}
+
+// ============================================================
+//  TAGS
+// ============================================================
+async function loadTags() {
+  const res = await authFetch('/tags/');
+  if (!res) return;
+  if (res.ok) {
+    allTags = await res.json();
+    renderTagsSidebar();
+  }
+}
+
+function renderTagsSidebar() {
+  const el = document.getElementById('tag-list-sidebar');
+  if (!allTags.length) {
+    el.innerHTML = '<span class="no-tags">برچسبی وجود ندارد</span>';
+    return;
+  }
+  el.innerHTML = allTags.map(tag =>
+    `<div class="tag-sidebar-item" data-tag-id="${tag.id}">
+       <span class="tag-dot" style="background:${tag.color || '#808080'}"></span>
+       <span>${escapeHtml(tag.name)}</span>
+     </div>`
+  ).join('');
+}
+
+function renderTagPicker() {
+  const picker = document.getElementById('tag-picker');
+  if (!allTags.length) {
+    picker.innerHTML = '<span class="no-tags">برچسبی وجود ندارد — از قسمت پایین اضافه کنید</span>';
+    return;
+  }
+  picker.innerHTML = allTags.map(tag =>
+    `<label class="tag-pick-item ${selectedTagIds.has(tag.id) ? 'selected' : ''}" data-tag-id="${tag.id}">
+       <span class="tag-dot" style="background:${tag.color || '#808080'}"></span>
+       ${escapeHtml(tag.name)}
+     </label>`
+  ).join('');
+
+  picker.querySelectorAll('.tag-pick-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const id = Number(item.dataset.tagId);
+      if (selectedTagIds.has(id)) {
+        selectedTagIds.delete(id);
+        item.classList.remove('selected');
+      } else {
+        selectedTagIds.add(id);
+        item.classList.add('selected');
+      }
+    });
+  });
+}
+
+function openTagModal() {
+  document.getElementById('tag-form-error').classList.add('hidden');
+  document.getElementById('new-tag-name').value = '';
+  document.getElementById('new-tag-color').value = '#1E435D';
+  renderTagManagementList();
+  document.getElementById('tag-modal-overlay').classList.remove('hidden');
+}
+
+function closeTagModal() {
+  document.getElementById('tag-modal-overlay').classList.add('hidden');
+}
+
+function renderTagManagementList() {
+  const el = document.getElementById('tag-management-list');
+  if (!allTags.length) {
+    el.innerHTML = '<p class="no-tags">هنوز برچسبی ایجاد نشده است.</p>';
+    return;
+  }
+  el.innerHTML = allTags.map(tag => `
+    <div class="tag-manage-row" data-tag-id="${tag.id}">
+      <span class="tag-dot" style="background:${tag.color || '#808080'}"></span>
+      <span class="tag-manage-name" id="tag-name-display-${tag.id}">${escapeHtml(tag.name)}</span>
+      <div class="tag-manage-actions">
+        <button class="btn btn-sm btn-outline tag-edit-btn" data-id="${tag.id}">ویرایش</button>
+        <button class="btn btn-sm btn-danger tag-delete-btn" data-id="${tag.id}">حذف</button>
+      </div>
+    </div>
+    <div class="tag-edit-form hidden" id="tag-edit-form-${tag.id}">
+      <input type="text" class="tag-edit-name-input" value="${escapeHtml(tag.name)}" maxlength="30" />
+      <input type="color" class="tag-edit-color-input" value="${tag.color || '#808080'}" />
+      <button class="btn btn-sm btn-primary tag-save-edit-btn" data-id="${tag.id}">ذخیره</button>
+      <button class="btn btn-sm btn-outline tag-cancel-edit-btn" data-id="${tag.id}">انصراف</button>
+    </div>
+  `).join('');
+
+  el.querySelectorAll('.tag-edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      document.getElementById(`tag-edit-form-${id}`).classList.remove('hidden');
+      btn.closest('.tag-manage-row').classList.add('hidden');
+    });
+  });
+  el.querySelectorAll('.tag-cancel-edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      document.getElementById(`tag-edit-form-${id}`).classList.add('hidden');
+      el.querySelector(`[data-tag-id="${id}"].tag-manage-row`).classList.remove('hidden');
+    });
+  });
+  el.querySelectorAll('.tag-save-edit-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      const form = document.getElementById(`tag-edit-form-${id}`);
+      const name = form.querySelector('.tag-edit-name-input').value.trim();
+      const color = form.querySelector('.tag-edit-color-input').value;
+      if (!name) return alert('نام برچسب نمی‌تواند خالی باشد.');
+      await updateTag(id, { name, color });
+    });
+  });
+  el.querySelectorAll('.tag-delete-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      confirmAction('حذف برچسب', 'آیا می‌خواهید این برچسب را حذف کنید؟', async () => {
+        await deleteTag(btn.dataset.id);
+      });
+    });
+  });
+}
+
+async function createTag(name, color) {
+  const errEl = document.getElementById('tag-form-error');
+  errEl.classList.add('hidden');
+  if (!name) { errEl.textContent = 'نام برچسب الزامی است.'; errEl.classList.remove('hidden'); return; }
+
+  const res = await authFetch('/tags/', {
+    method: 'POST',
+    body: JSON.stringify({ name, color }),
+  });
+  if (!res) return;
+  if (res.ok) {
+    const tag = await res.json();
+    allTags.push(tag);
+    renderTagsSidebar();
+    renderTagManagementList();
+    renderTagPicker();
+    document.getElementById('new-tag-name').value = '';
+  } else {
+    const data = await res.json();
+    const errs = Object.values(data).flat().join(' | ');
+    errEl.textContent = errs || 'خطا در ساختن برچسب.';
+    errEl.classList.remove('hidden');
+  }
+}
+
+async function updateTag(tagId, fields) {
+  const res = await authFetch(`/tags/${tagId}/`, {
+    method: 'PATCH',
+    body: JSON.stringify(fields),
+  });
+  if (!res) return;
+  if (res.ok) {
+    const updated = await res.json();
+    const idx = allTags.findIndex(t => String(t.id) === String(tagId));
+    if (idx !== -1) allTags[idx] = updated;
+    renderTagsSidebar();
+    renderTagManagementList();
+    renderTagPicker();
+  } else {
+    const data = await res.json().catch(() => ({}));
+    alert('خطا: ' + JSON.stringify(data));
+  }
+}
+
+async function deleteTag(tagId) {
+  const res = await authFetch(`/tags/${tagId}/`, { method: 'DELETE' });
+  if (!res) return;
+  if (res.status === 204 || res.ok) {
+    allTags = allTags.filter(t => String(t.id) !== String(tagId));
+    selectedTagIds.delete(Number(tagId));
+    renderTagsSidebar();
+    renderTagManagementList();
+    renderTagPicker();
+    // Remove tag from tasks display
+    allTasks.forEach(task => {
+      task.tags = (task.tags || []).filter(t => String(t.id) !== String(tagId));
+    });
+    renderTasks();
+  }
+}
+
+// ============================================================
+//  INLINE TAG ADD (inside task modal)
+// ============================================================
+async function addTagInline() {
+  const name = document.getElementById('new-tag-inline-name').value.trim();
+  const color = document.getElementById('new-tag-inline-color').value;
+  if (!name) return;
+
+  // Check if tag already exists
+  const existing = allTags.find(t => t.name.toLowerCase() === name.toLowerCase());
+  if (existing) {
+    selectedTagIds.add(existing.id);
+    renderTagPicker();
+    document.getElementById('new-tag-inline-name').value = '';
+    return;
+  }
+
+  const res = await authFetch('/tags/', {
+    method: 'POST',
+    body: JSON.stringify({ name, color }),
+  });
+  if (!res) return;
+  if (res.ok) {
+    const tag = await res.json();
+    allTags.push(tag);
+    selectedTagIds.add(tag.id);
+    renderTagPicker();
+    renderTagsSidebar();
+    document.getElementById('new-tag-inline-name').value = '';
+  } else {
+    const data = await res.json();
+    alert(Object.values(data).flat().join(' | ') || 'خطا در ساخت برچسب');
+  }
+}
+
+// ============================================================
+//  CONFIRM DIALOG
+// ============================================================
+let confirmCallback = null;
+
+function confirmAction(title, message, callback) {
+  document.getElementById('confirm-title').textContent = title;
+  document.getElementById('confirm-message').textContent = message;
+  confirmCallback = callback;
+  document.getElementById('confirm-modal-overlay').classList.remove('hidden');
+}
+
+// ============================================================
+//  EVENT LISTENERS
+// ============================================================
+function setupEventListeners() {
+  // Logout
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    localStorage.clear();
+    window.location.href = '/login/';
+  });
+
+  // Sidebar toggle (mobile)
+  document.getElementById('sidebar-toggle').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('open');
+  });
+
+  // Nav items
+  document.querySelectorAll('.nav-item[data-view]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentView = btn.dataset.view;
+      const titles = { all: 'همه وظایف', active: 'وظایف فعال', completed: 'تکمیل‌شده', deleted: 'حذف‌شده' };
+      document.getElementById('view-title').textContent = titles[currentView] || 'وظایف';
+      await loadTasks();
+    });
+  });
+
+  // New task
+  document.getElementById('new-task-btn').addEventListener('click', () => openTaskModal());
+
+  // Task modal close/cancel/save
+  document.getElementById('task-modal-close').addEventListener('click', closeTaskModal);
+  document.getElementById('task-cancel-btn').addEventListener('click', closeTaskModal);
+  document.getElementById('task-save-btn').addEventListener('click', saveTask);
+
+  // Close modal on overlay click
+  document.getElementById('task-modal-overlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('task-modal-overlay')) closeTaskModal();
+  });
+
+  // Tag modal
+  document.getElementById('add-tag-btn').addEventListener('click', openTagModal);
+  document.getElementById('tag-modal-close').addEventListener('click', closeTagModal);
+  document.getElementById('tag-modal-done-btn').addEventListener('click', closeTagModal);
+  document.getElementById('tag-modal-overlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('tag-modal-overlay')) closeTagModal();
+  });
+
+  document.getElementById('create-tag-btn').addEventListener('click', () => {
+    const name = document.getElementById('new-tag-name').value.trim();
+    const color = document.getElementById('new-tag-color').value;
+    createTag(name, color);
+  });
+
+  // Inline tag add
+  document.getElementById('new-tag-inline-btn').addEventListener('click', addTagInline);
+  document.getElementById('new-tag-inline-name').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); addTagInline(); }
+  });
+
+  // Confirm modal
+  document.getElementById('confirm-ok-btn').addEventListener('click', async () => {
+    document.getElementById('confirm-modal-overlay').classList.add('hidden');
+    if (confirmCallback) { await confirmCallback(); confirmCallback = null; }
+  });
+  document.getElementById('confirm-cancel-btn').addEventListener('click', () => {
+    document.getElementById('confirm-modal-overlay').classList.add('hidden');
+    confirmCallback = null;
+  });
+  document.getElementById('confirm-close').addEventListener('click', () => {
+    document.getElementById('confirm-modal-overlay').classList.add('hidden');
+    confirmCallback = null;
+  });
+
+  // Filters & search — live re-render
+  document.getElementById('search-input').addEventListener('input', renderTasks);
+  document.getElementById('priority-filter').addEventListener('change', renderTasks);
+  document.getElementById('duration-filter').addEventListener('change', renderTasks);
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeTaskModal();
+      closeTagModal();
+      document.getElementById('confirm-modal-overlay').classList.add('hidden');
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+      e.preventDefault();
+      openTaskModal();
+    }
+  });
+}
+</script>
 </body>
 </html>

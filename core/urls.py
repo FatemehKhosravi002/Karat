@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
+from django.views.generic import TemplateView
 
 from core.views import home, login
 
@@ -24,6 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include("accounts.urls")),
     path('login/', login, name='login'),
+    path('register/', TemplateView.as_view(template_name='register.html')),
+    path('profile/', TemplateView.as_view(template_name='profile.html')),
     path('', home, name='home'),
     path('', include("tasks.urls")),
 ]

@@ -1,125 +1,92 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ورود — کارات 🛤️</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>کارات - ورود</title>
   {% load static %}
-  <link rel="stylesheet" href="{% static 'style.css' %}">
-  <script defer src="{% static 'api.js' %}"></script>
-  <script defer src="{% static 'auth.js' %}"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
 </head>
-<body class="cozy-bg">
-
-  <!-- Ambient stars -->
-  <div class="px-star" style="top:7%;right:7%;animation-delay:0s;font-size:1.3rem;color:#fbbf24">✦</div>
-  <div class="px-star" style="top:14%;left:5%;animation-delay:1.1s;color:#38bdf8">✦</div>
-  <div class="px-star" style="top:68%;right:4%;animation-delay:0.6s;color:#4ade80">✦</div>
-  <div class="px-star" style="top:82%;left:7%;animation-delay:1.7s;font-size:0.9rem;color:#fbbf24">✦</div>
-  <div class="px-star" style="top:42%;right:2%;animation-delay:2.3s;font-size:0.8rem;color:#c084fc">✦</div>
-  <div class="px-star" style="top:55%;left:3%;animation-delay:0.3s;font-size:1.1rem;color:#38bdf8">✦</div>
-
-  <!-- Corner labels -->
-  <div class="corner-label tl">KARAT v2.0</div>
-  <div class="corner-label bl">INSERT COIN ▶</div>
-
-  <main class="auth-shell">
+<body class="auth-page">
+  <div class="auth-container">
     <div class="auth-card">
-
-      <!-- Pixel road art -->
-      <svg width="80" height="80" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-           style="image-rendering:pixelated;display:block;margin:0 auto 18px;animation:float-px 2.2s steps(4) infinite;">
-        <!-- Sky -->
-        <rect width="20" height="20" fill="#1c1917"/>
-        <!-- Stars -->
-        <rect x="1"  y="1" width="1" height="1" fill="#fbbf24" opacity="0.7"/>
-        <rect x="5"  y="2" width="1" height="1" fill="#fbbf24" opacity="0.5"/>
-        <rect x="10" y="1" width="1" height="1" fill="#fbbf24" opacity="0.9"/>
-        <rect x="16" y="2" width="1" height="1" fill="#fbbf24" opacity="0.6"/>
-        <rect x="18" y="1" width="1" height="1" fill="#38bdf8" opacity="0.6"/>
-        <!-- Moon -->
-        <rect x="2" y="1" width="2" height="2" fill="#fdf6ec" opacity="0.85"/>
-        <rect x="3" y="1" width="1" height="2" fill="#1c1917"/>
-        <!-- Mountains -->
-        <rect x="0"  y="6" width="1" height="8" fill="#2d2620"/>
-        <rect x="1"  y="5" width="2" height="9" fill="#2d2620"/>
-        <rect x="3"  y="6" width="2" height="8" fill="#2d2620"/>
-        <rect x="12" y="7" width="1" height="7" fill="#231f1b"/>
-        <rect x="13" y="5" width="2" height="9" fill="#231f1b"/>
-        <rect x="15" y="7" width="3" height="7" fill="#231f1b"/>
-        <!-- Snow -->
-        <rect x="2"  y="5" width="1" height="1" fill="#c8d8f0" opacity="0.7"/>
-        <rect x="14" y="5" width="1" height="1" fill="#c8d8f0" opacity="0.7"/>
-        <!-- Ground -->
-        <rect x="0" y="14" width="20" height="6" fill="#1a3020"/>
-        <!-- Road -->
-        <rect x="7" y="10" width="6" height="10" fill="#3d342c"/>
-        <rect x="8" y="10" width="4" height="10" fill="#4a3f35"/>
-        <!-- Road dashes -->
-        <rect x="9" y="10" width="2" height="2" fill="#fbbf24"/>
-        <rect x="9" y="13" width="2" height="2" fill="#fbbf24"/>
-        <rect x="9" y="16" width="2" height="2" fill="#fbbf24"/>
-        <!-- Road edges -->
-        <rect x="7"  y="10" width="1" height="10" fill="#2d2620"/>
-        <rect x="12" y="10" width="1" height="10" fill="#2d2620"/>
-        <!-- Pixel car -->
-        <rect x="7" y="12" width="6" height="4" fill="#38bdf8"/>
-        <rect x="8" y="12" width="4" height="2" fill="#1c1917"/>
-        <rect x="7" y="12" width="1" height="2" fill="#fbbf24"/>
-        <rect x="12" y="12" width="1" height="2" fill="#fbbf24"/>
-        <rect x="7" y="15" width="6" height="1" fill="#fb7185" opacity="0.6"/>
-        <!-- Tree left -->
-        <rect x="3" y="10" width="2" height="4" fill="#4ade80"/>
-        <rect x="2" y="11" width="4" height="3" fill="#4ade80"/>
-        <rect x="3" y="9"  width="2" height="2" fill="#86efac"/>
-        <rect x="3" y="14" width="1" height="2" fill="#7a4a1a"/>
-        <!-- House right -->
-        <rect x="16" y="11" width="4" height="5" fill="#c084fc" opacity="0.85"/>
-        <rect x="16" y="9"  width="4" height="3" fill="#7a4aac"/>
-        <rect x="17" y="8"  width="2" height="2" fill="#7a4aac"/>
-        <rect x="17" y="12" width="1" height="3" fill="#1c1917"/>
-        <rect x="18" y="12" width="1" height="1" fill="#fbbf24" opacity="0.8"/>
-      </svg>
-
-      <h1>کارات</h1>
-      <p class="greeting">خوش اومدی! بریم جاده‌ی کارها رو بسازیم 🚗</p>
-
-      <div class="tabs" role="tablist">
-        <button type="button" id="loginTab" class="tab active" role="tab">[ ورود ]</button>
-        <button type="button" id="registerTab" class="tab" role="tab">[ ثبت‌نام ]</button>
+      <div class="auth-logo">
+        <span class="logo-icon">✦</span>
+        <h1 class="logo-text">کارات</h1>
       </div>
+      <p class="auth-subtitle">به مدیریت وظایف خود خوش آمدید</p>
 
-      <div id="authError" class="error hidden" role="alert"></div>
+      <div id="error-msg" class="alert alert-error hidden"></div>
 
-      <!-- Login Form -->
-      <form id="loginForm" class="form">
-        <label for="loginUsername">▸ نام کاربری</label>
-        <input id="loginUsername" type="text" autocomplete="username" required placeholder="username">
-
-        <label for="loginPassword">▸ رمز عبور</label>
-        <input id="loginPassword" type="password" autocomplete="current-password" required placeholder="••••••••">
-
-        <button type="submit" class="btn-primary full">[ ورود به سیستم → ]</button>
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="username">نام کاربری</label>
+          <input type="text" id="username" name="username" placeholder="نام کاربری خود را وارد کنید" required autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label for="password">رمز عبور</label>
+          <div class="password-wrapper">
+            <input type="password" id="password" name="password" placeholder="رمز عبور خود را وارد کنید" required autocomplete="current-password" />
+            <button type="button" class="toggle-pass" id="toggle-pass">👁</button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" id="login-btn">
+          <span class="btn-text">ورود</span>
+          <span class="btn-spinner hidden">⏳</span>
+        </button>
       </form>
 
-      <!-- Register Form -->
-      <form id="registerForm" class="form hidden">
-        <label for="registerName">▸ نام شما</label>
-        <input id="registerName" type="text" autocomplete="name" required placeholder="مثلاً سارا خانم">
-
-        <label for="registerUsername">▸ نام کاربری</label>
-        <input id="registerUsername" type="text" autocomplete="username" required placeholder="sara_99">
-
-        <label for="registerPassword">▸ رمز عبور</label>
-        <input id="registerPassword" type="password" autocomplete="new-password" required placeholder="حداقل ۸ کاراکتر">
-
-        <button type="submit" class="btn-primary full">[ شروع ماجرا → ]</button>
-      </form>
-
+      <p class="auth-link">حساب کاربری ندارید؟ <a href="/account/register/">ثبت‌نام کنید</a></p>
     </div>
-  </main>
+  </div>
 
+  <script>
+    const loginForm = document.getElementById('login-form');
+    const errorMsg = document.getElementById('error-msg');
+    const loginBtn = document.getElementById('login-btn');
+    const togglePass = document.getElementById('toggle-pass');
+    const passInput = document.getElementById('password');
+
+    togglePass.addEventListener('click', () => {
+      const type = passInput.type === 'password' ? 'text' : 'password';
+      passInput.type = type;
+      togglePass.textContent = type === 'password' ? '👁' : '🙈';
+    });
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.classList.add('hidden');
+      loginBtn.querySelector('.btn-text').textContent = 'در حال ورود...';
+      loginBtn.querySelector('.btn-spinner').classList.remove('hidden');
+      loginBtn.disabled = true;
+
+      const username = document.getElementById('username').value.trim();
+      const password = passInput.value;
+
+      try {
+        const res = await fetch('/account/token/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          localStorage.setItem('access', data.access);
+          localStorage.setItem('refresh', data.refresh);
+          window.location.href = '/';
+        } else {
+          errorMsg.textContent = data.detail || 'نام کاربری یا رمز عبور اشتباه است.';
+          errorMsg.classList.remove('hidden');
+        }
+      } catch (err) {
+        errorMsg.textContent = 'خطا در اتصال به سرور. لطفاً دوباره تلاش کنید.';
+        errorMsg.classList.remove('hidden');
+      } finally {
+        loginBtn.querySelector('.btn-text').textContent = 'ورود';
+        loginBtn.querySelector('.btn-spinner').classList.add('hidden');
+        loginBtn.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>

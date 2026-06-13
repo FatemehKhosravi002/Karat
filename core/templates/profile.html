@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>کارات - پروفایل</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="logo-icon">✦</span>
+    <span class="logo-text">کارات</span>
+  </div>
+  <nav class="sidebar-nav">
+    <button class="nav-item" onclick="window.location.href='/'">
+      <span class="nav-icon">📋</span> همه وظایف
+    </button>
+    <button class="nav-item active">
+      <span class="nav-icon">👤</span> پروفایل
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    <div id="user-info-sidebar"></div>
+    <button class="btn-logout" id="logout-btn">خروج</button>
+  </div>
+</aside>
+
+<main class="main-content">
+  <header class="topbar">
+    <div class="topbar-title">پروفایل کاربری</div>
+  </header>
+
+  <div style="padding: 1.5rem; max-width: 500px;">
+
+    <!-- Edit Profile -->
+    <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1rem;">
+      <h2 style="font-size: 1rem; margin-bottom: 1rem; color: var(--blue);">ویرایش پروفایل</h2>
+
+      <div id="profile-error" class="alert alert-error hidden"></div>
+      <div id="profile-success" class="alert alert-success hidden"></div>
+
+      <div class="form-group">
+        <label>نام و نام خانوادگی</label>
+        <input type="text" id="profile-name" placeholder="نام کامل" />
+      </div>
+      <div class="form-group">
+        <label>نام کاربری</label>
+        <input type="text" id="profile-username" placeholder="نام کاربری" />
+      </div>
+      <button class="btn btn-primary" id="profile-save-btn" onclick="saveProfile()">ذخیره تغییرات</button>
+    </div>
+
+    <!-- Change Password -->
+    <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+      <h2 style="font-size: 1rem; margin-bottom: 1rem; color: var(--blue);">تغییر رمز عبور</h2>
+
+      <div id="pass-error" class="alert alert-error hidden"></div>
+      <div id="pass-success" class="alert alert-success hidden"></div>
+
+      <div class="form-group">
+        <label>رمز عبور فعلی</label>
+        <input type="password" id="old-password" placeholder="رمز عبور فعلی" />
+      </div>
+      <div class="form-group">
+        <label>رمز عبور جدید</label>
+        <input type="password" id="new-password1" placeholder="رمز عبور جدید" />
+      </div>
+      <div class="form-group">
+        <label>تکرار رمز عبور جدید</label>
+        <input type="password" id="new-password2" placeholder="تکرار رمز عبور جدید" />
+      </div>
+      <button class="btn btn-primary" id="pass-save-btn" onclick="savePassword()">تغییر رمز عبور</button>
+    </div>
+
+  </div>
+</main>
+
+<script>
+function getAccess() { return localStorage.getItem('access'); }
+function getRefresh() { return localStorage.getItem('refresh'); }
+
+function getCookie(name) {
+  const v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+  return v ? v[2] : null;
+}
+
+async function refreshToken() {
+  const refresh = getRefresh();
+  if (!refresh) return false;
+  try {
+    const res = await fetch('/account/token/refresh/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refresh })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      localStorage.setItem('access', data.access);
+      return true;
+    }
+  } catch {}
+  return false;
+}
+
+async function authFetch(url, options = {}) {
+  let token = getAccess();
+  if (!token) { window.location.href = '/login/'; return null; }
+  options.headers = {
+    ...(options.headers || {}),
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json',
+    'X-CSRFToken': getCookie('csrftoken'),
+  };
+  let res = await fetch(url, options);
+  if (res.status === 401) {
+    const ok = await refreshToken();
+    if (ok) {
+      options.headers['Authorization'] = `Bearer ${getAccess()}`;
+      res = await fetch(url, options);
+    } else {
+      localStorage.clear();
+      window.location.href = '/login/';
+      return null;
+    }
+  }
+  return res;
+}
+
+async function loadProfile() {
+  if (!getAccess()) { window.location.href = '/login/'; return; }
+  const res = await authFetch('/account/me/');
+  if (!res) return;
+  if (res.ok) {
+    const user = await res.json();
+    document.getElementById('profile-name').value = user.name || '';
+    document.getElementById('profile-username').value = user.username || '';
+    document.getElementById('user-info-sidebar').innerHTML =
+      `<div class="user-chip">👤 ${user.name || user.username}</div>`;
+  }
+}
+
+async function saveProfile() {
+  const errEl = document.getElementById('profile-error');
+  const sucEl = document.getElementById('profile-success');
+  errEl.classList.add('hidden');
+  sucEl.classList.add('hidden');
+
+  const payload = {
+    name: document.getElementById('profile-name').value.trim(),
+    username: document.getElementById('profile-username').value.trim(),
+  };
+
+  const btn = document.getElementById('profile-save-btn');
+  btn.disabled = true;
+  btn.textContent = 'در حال ذخیره...';
+
+  try {
+    const res = await authFetch('/account/me/', {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+    });
+    if (!res) return;
+    if (res.ok) {
+      sucEl.textContent = 'پروفایل با موفقیت به‌روز شد.';
+      sucEl.classList.remove('hidden');
+    } else {
+      const data = await res.json();
+      errEl.textContent = Object.values(data).flat().join(' | ') || 'خطایی رخ داد.';
+      errEl.classList.remove('hidden');
+    }
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'ذخیره تغییرات';
+  }
+}
+
+async function savePassword() {
+  const errEl = document.getElementById('pass-error');
+  const sucEl = document.getElementById('pass-success');
+  errEl.classList.add('hidden');
+  sucEl.classList.add('hidden');
+
+  const payload = {
+    old_password: document.getElementById('old-password').value,
+    new_password1: document.getElementById('new-password1').value,
+    new_password2: document.getElementById('new-password2').value,
+  };
+
+  const btn = document.getElementById('pass-save-btn');
+  btn.disabled = true;
+  btn.textContent = 'در حال تغییر...';
+
+  try {
+    const res = await authFetch('/account/me/change-password/', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+    if (!res) return;
+    if (res.ok) {
+      sucEl.textContent = 'رمز عبور با موفقیت تغییر کرد.';
+      sucEl.classList.remove('hidden');
+      document.getElementById('old-password').value = '';
+      document.getElementById('new-password1').value = '';
+      document.getElementById('new-password2').value = '';
+    } else {
+      const data = await res.json();
+      errEl.textContent = Object.values(data).flat().join(' | ') || 'خطایی رخ داد.';
+      errEl.classList.remove('hidden');
+    }
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'تغییر رمز عبور';
+  }
+}
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+  localStorage.clear();
+  window.location.href = '/login/';
+});
+
+loadProfile();
+</script>
+</body>
+</html>
