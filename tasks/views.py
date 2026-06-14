@@ -4,12 +4,15 @@ from django.shortcuts import get_object_or_404
 
 from .serializers import TaskSerializer, TagSerializer
 from .models import TaskModel, TagModel
+from .permissions import OwnerPermission
 
 class TagDetailView(APIView):
+    permission_classes = [OwnerPermission,]
     def get_object(self, pk):
-        return get_object_or_404(TagModel,
-                                 pk=pk,
-                                 user=self.request.user)
+        obj = get_object_or_404(TagModel, pk=pk)
+        self.check_object_permissions(self.request, obj)
+        return obj
+    
     def get(self, request, pk):
         serializer = TagSerializer(self.get_object(pk))
         return Response(serializer.data)
@@ -56,12 +59,13 @@ class TagListView(APIView):
 
 
 class TaskDetailView(APIView):
+    permission_classes = [OwnerPermission,]
     def get_object(self, pk):
-        return get_object_or_404(
+        obj = get_object_or_404(
             TaskModel,
-            pk=pk,
-            user=self.request.user,
-            )
+            pk=pk)
+        self.check_object_permissions(self.request, obj)
+        return obj
     
     def get(self, request, pk):
         obj = self.get_object(pk)
