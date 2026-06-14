@@ -6,8 +6,6 @@ from rest_framework.permissions import AllowAny
 from .serilizers import CustomUserSerializer, CustomUserChangePasswordSerializer
 
 class CustomUserDetailView(APIView):
-    permission_classes=[IsAuthenticated]
-    
     def get(self, request):
         serializer = CustomUserSerializer(request.user)
         return Response(serializer.data)
